@@ -4,12 +4,16 @@ import json
 from unittest import TestCase
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import \
+    BuyBoxData
 
 
 class TestProductDataDto(TestCase):
 
-    # product_data_dto = ProductDataDto()
+    def setUp(self):
+        logging.basicConfig(level=logging.DEBUG)
+        self.product_data_dto = ProductDataDto()
+
     buybox_json = """
 {
   "status": true,
@@ -86,6 +90,6 @@ class TestProductDataDto(TestCase):
 
     def test_convert_buybox_tod_dto(self):
         buybox_data = BuyBoxData(json.loads(self.buybox_json))
-        product_data_dto = ProductDataDto().convert_buybox_tod_dto(buybox_data)
+        self.product_data_dto.convert_buybox_tod_dto(buybox_data)
 
-        self.assertIsNotNone(product_data_dto, "Product data should not be None")
+        self.assertIsNotNone(self.product_data_dto, "Product data should not be None")

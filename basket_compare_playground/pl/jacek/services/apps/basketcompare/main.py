@@ -2,6 +2,8 @@ import logging
 
 from flask import Flask, session, render_template, request
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import SELECTED_PRODUCTS_SESSION_KEY, BASKET_COMPARE_SESSION_KEY
+
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.ProductController import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketController import BasketController
@@ -19,7 +21,11 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.Bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
     BasketCompareService
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket_compare import BasketCompare
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+
 app = Flask(__name__)
+app.secret_key = 'your secret key'
 
 logging.basicConfig(level=logging.INFO)
 
@@ -38,6 +44,9 @@ basket_compare_controller = BasketCompareController(basket_compare_service)
 
 @app.route('/')
 def home():
+    if SELECTED_PRODUCTS_SESSION_KEY not in session:
+        session[SELECTED_PRODUCTS_SESSION_KEY] = {}
+
     return render_template('dashboard.html')
 
 
@@ -58,9 +67,10 @@ def get_baskets():
 @app.route('/basket_compares')
 def get_basket_compares():
     # basket_compares = basket_compare_controller.get_all_basket_compares()
-    basket_compares = basket_compare_controller.get_basket_compare(
-        "Alchemik", "Paulo+Coelho")
-    return render_template('basket_compares.html', basket_compares=basket_compares)
+    # basket_compares = basket_compare_controller.get_basket_compare(
+    #     "Alchemik", "Paulo+Coelho")
+    products = session[SELECTED_PRODUCTS_SESSION_KEY]
+    return render_template('basket_compares.html', basket_compares=products)
 
 
 @app.route('/products/search')
@@ -85,6 +95,9 @@ def add_product_to_basket_compare():
     name = request.form['name']
     info = request.form['info']
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
+
+    product = basket_compare_controller.get_basket_compare(name, info)
+    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
 
     # basket_compare_controller.create_basket_compare(name, info)
 

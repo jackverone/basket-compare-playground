@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, request
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import SELECTED_PRODUCTS_SESSION_KEY, BASKET_COMPARE_SESSION_KEY
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.ProductController import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketController import BasketController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketCompareController import \
@@ -71,6 +71,14 @@ def get_basket_compares():
     #     "Alchemik", "Paulo+Coelho")
     products = session[SELECTED_PRODUCTS_SESSION_KEY]
     return render_template('basket_compares.html', basket_compares=products)
+
+
+@app.route('/basket_compares_buybox')
+def get_basket_compares_buybox():
+    # basket_compares = basket_compare_controller.get_all_basket_compares()
+    basket_compares = basket_compare_controller.get_basket_compare(
+        "Alchemik", "Paulo+Coelho")
+    return render_template('basket_compares.html', basket_compares=basket_compares)
 
 
 @app.route('/products/search')

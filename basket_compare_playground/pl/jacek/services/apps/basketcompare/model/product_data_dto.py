@@ -10,7 +10,7 @@ class ProductDataDto:
     def __init__(self):
         self.product_data = None
 
-    def convert_buybox_tod_dto(self, buybox_data: BuyBoxData):
+    def convert_buybox_to_dto(self, buybox_data: BuyBoxData):
         self.product_data = buybox_data
 
     def __str__(self):

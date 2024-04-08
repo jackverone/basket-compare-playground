@@ -3,13 +3,13 @@ import logging
 import requests
 import json
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxResponse import \
-    BuyBoxResponse
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import \
+    BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import BUYBOX_API_URL
 
 
 class BuyBoxService:
-    def __init__(self, base_url="https://buybox.click"):
+    def __init__(self, base_url=BUYBOX_API_URL):
         self.base_url = base_url
 
     def get_buybox(self, bb_id, name, name_value, info, info_value):
@@ -21,17 +21,13 @@ class BuyBoxService:
         logging.info(f"response: {response}")
         return response
 
-    def get_buybox_by_name(self, name_value, info_value):
-        return self.get_buybox("17970", "name", name_value, "info", info_value)
-
-    def get_buybox_result(self, name_value, info_value):
-        logging.info(f"Getting buybox result for {name_value} and {info_value}")
+    def get_buybox_data(self, name_value, info_value):
+        logging.info(f"Getting buybox data for {name_value} and {info_value}")
 
         # json_data = dict()
         try:
-            json_data = self.get_buybox_by_name(name_value, info_value)
+            json_data = self.get_buybox(BUYBOX_API_URL, "name", name_value, "info", info_value)
             parsed_json = json.loads(json_data.text)
-            logging.info(f"parsed_json: {parsed_json}")
             buy_box_data = BuyBoxData(parsed_json)
             buy_box_data.sort_data_by_price()
 

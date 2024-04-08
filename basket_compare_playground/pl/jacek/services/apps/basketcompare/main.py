@@ -16,7 +16,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.B
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
     BasketCompareRepository
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.ProductService import ProductService
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketService import BasketService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
     BasketCompareService

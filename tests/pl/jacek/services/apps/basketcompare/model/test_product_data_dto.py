@@ -90,6 +90,6 @@ class TestProductDataDto(TestCase):
 
     def test_convert_buybox_tod_dto(self):
         buybox_data = BuyBoxData(json.loads(self.buybox_json))
-        self.product_data_dto.convert_buybox_tod_dto(buybox_data)
+        self.product_data_dto.convert_buybox_to_dto(buybox_data)
 
         self.assertIsNotNone(self.product_data_dto, "Product data should not be None")

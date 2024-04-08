@@ -6,6 +6,7 @@ import json
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import \
     BuyBoxData
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import BUYBOX_API_URL
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import BUYBOX_API_ID
 
 
 class BuyBoxService:
@@ -24,16 +25,14 @@ class BuyBoxService:
     def get_buybox_data(self, name_value, info_value):
         logging.info(f"Getting buybox data for {name_value} and {info_value}")
 
-        # json_data = dict()
+        json_data = dict()
         try:
-            json_data = self.get_buybox(BUYBOX_API_URL, "name", name_value, "info", info_value)
+            json_data = self.get_buybox(BUYBOX_API_ID, "name", name_value, "info", info_value)
             parsed_json = json.loads(json_data.text)
             buy_box_data = BuyBoxData(parsed_json)
             buy_box_data.sort_data_by_price()
 
-            # logging.info(f"TYPE: {type(buy_box_data)}")
             logging.info(f"BuyBoxData: {str(buy_box_data)}")
-            # buy_box_data.buy_box_data.sort_data_by_price()
         except TypeError as e:
             logging.error(f"Error parsing json data: {json_data}")
             traceback.print_exc()

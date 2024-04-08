@@ -27,7 +27,24 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 app = Flask(__name__)
 app.secret_key = 'your secret key'
 
-logging.basicConfig(level=logging.INFO)
+
+# Use Flask's logger
+logger = app.logger
+
+# Create a custom logger
+# logger = logging.getLogger(__name__)
+
+# Create handlers
+c_handler = logging.StreamHandler()
+c_handler.setLevel(logging.WARNING)
+
+# Create formatters and add it to handlers
+c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+c_handler.setFormatter(c_format)
+
+# Add handlers to the logger
+logger.addHandler(c_handler)
+
 
 product_repository = ProductRepository()
 basket_repository = BasketRepository()
@@ -37,7 +54,7 @@ product_service = ProductService(product_repository)
 basket_service = BasketService(basket_repository)
 basket_compare_service = BasketCompareService(basket_compare_repository)
 
-product_controller = ProductController(product_service)
+product_controller = ProductController(product_service, product_repository)
 basket_controller = BasketController(basket_service)
 basket_compare_controller = BasketCompareController(basket_compare_service)
 
@@ -82,7 +99,7 @@ def get_basket_compares_buybox():
 
 
 @app.route('/products/search')
-def search_products():
+def search_products_view():
     return render_template('product_search.html', products=None)
 
 
@@ -90,26 +107,24 @@ def search_products():
 def search_products_post():
     name = request.form['name']
     info = request.form['info']
-    logging.info(f"Searching for products with name: {name} and info: {info}")
+    logging.info(f"search_products_post({name}, {info})")
 
-    products = basket_compare_controller.get_basket_compare(name, info)
+    products = product_controller.search_product(name, info)
     # products = None
 
     return render_template('product_search.html', products=products)
 
 
 @app.route('/products/add', methods=['POST'])
-def add_product_to_basket_compare():
+def add_product_to_basket():
     name = request.form['name']
     info = request.form['info']
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
-    product = basket_compare_controller.get_basket_compare(name, info)
+    product = product_controller.search_product(name, info)
     session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
 
-    # basket_compare_controller.create_basket_compare(name, info)
-
-    return render_template('product_search.html', products=None)
+    return render_template('product_search.html')
 
 
 if __name__ == '__main__':

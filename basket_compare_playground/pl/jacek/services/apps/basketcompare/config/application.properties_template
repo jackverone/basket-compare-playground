@@ -1,0 +1,11 @@
+# NOTE: This is a template file. Rename the file name to 'application.properties'.
+# Please make sure to fill missing placeholders values.
+
+[BuyBoxApi]
+BUYBOX_API_URL=
+BUYBOX_API_ID=
+
+[AppSessionProperties]
+SELECTED_PRODUCTS_SESSION_KEY=selected_products
+BASKET_COMPARE_SESSION_KEY=basket_compare
+BASKET_SESSION_KEY=basket

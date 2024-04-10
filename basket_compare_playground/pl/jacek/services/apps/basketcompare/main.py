@@ -46,6 +46,9 @@ def home():
     if SELECTED_PRODUCTS_SESSION_KEY not in session:
         session[SELECTED_PRODUCTS_SESSION_KEY] = {}
 
+    if BASKET_SESSION_KEY not in session:
+        session[BASKET_SESSION_KEY] = Basket()
+
     return render_template('dashboard.html')
 
 
@@ -101,10 +104,14 @@ def search_products_post():
 def add_product_to_basket():
     name = request.form['name']
     info = request.form['info']
-    logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
+    logging.info(f"add_product_to_basket({name}, {info})")
 
     product = product_controller.search_product(name, info)
-    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
+    session[BASKET_SESSION_KEY].product_data_dtos.add(product)
+    logging.info(f"session[BASKET_SESSION_KEY].product_data_dtos={session[BASKET_SESSION_KEY].product_data_dtos}")
+
+    # basket_controller.add_product(product)
+    # session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
 
     return render_template('product_search.html', products=None)
 

@@ -13,5 +13,10 @@ class ProductDataDto:
     def convert_buybox_to_dto(self, buybox_data: BuyBoxData):
         self.product_data = buybox_data
 
+    def to_dict(self):
+        return {
+            "product_data": self.product_data.to_dict()
+        }
+
     def __str__(self):
         return f"ProductDataDto(product_data={self.product_data})"

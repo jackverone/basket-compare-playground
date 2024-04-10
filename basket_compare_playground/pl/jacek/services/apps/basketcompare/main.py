@@ -24,6 +24,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
     BasketCompareService
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+
 app = Flask(__name__)
 app.secret_key = 'your secret key'
 app.debug = True
@@ -50,7 +52,13 @@ basket_compare_controller = BasketCompareController(basket_compare_service)
 @app.route('/')
 def home():
     if SELECTED_PRODUCTS_SESSION_KEY not in session:
+        logging.info(f"Creating session for {SELECTED_PRODUCTS_SESSION_KEY}")
         session[SELECTED_PRODUCTS_SESSION_KEY] = {}
+
+    if "bbc" not in session:
+        session["bbc"] = None
+
+    logging.info(f"Session: {session}")
 
     return render_template('dashboard.html')
 
@@ -74,8 +82,10 @@ def get_basket_compares():
     # basket_compares = basket_compare_controller.get_all_basket_compares()
     # basket_compares = basket_compare_controller.get_basket_compare(
     #     "Alchemik", "Paulo+Coelho")
-    products = session[SELECTED_PRODUCTS_SESSION_KEY]
-    logging.info(f"get_basket_compares: {products}")
+    logging.info(f"get_basket_compares session: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
+    logging.info(f"get_basket_compares session: {session['bbc']}")
+    products = session.get(SELECTED_PRODUCTS_SESSION_KEY)
+    logging.info(f"get_basket_compares products: {products}")
     return render_template('basket_compares.html', basket_compares=products)
 
 
@@ -112,7 +122,9 @@ def add_product_to_basket():
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
-    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
+    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product.to_dict()
+    session["bbc"] = Product("Milk", 2.99, 1).to_dict()
+    logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
 
     return render_template('product_search.html', products=None)
 

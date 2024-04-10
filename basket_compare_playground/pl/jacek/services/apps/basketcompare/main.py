@@ -26,6 +26,12 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.Bask
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
+app.debug = True
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s'
+)
 
 buybox_service = BuyBoxService()
 product_repository = ProductRepository()
@@ -69,6 +75,7 @@ def get_basket_compares():
     # basket_compares = basket_compare_controller.get_basket_compare(
     #     "Alchemik", "Paulo+Coelho")
     products = session[SELECTED_PRODUCTS_SESSION_KEY]
+    logging.info(f"get_basket_compares: {products}")
     return render_template('basket_compares.html', basket_compares=products)
 
 
@@ -82,6 +89,7 @@ def get_basket_compares_buybox():
 
 @app.route('/products/search')
 def search_products_view():
+    app.logger.info("search_products_view()")
     return render_template('product_search.html', products=None)
 
 
@@ -110,4 +118,5 @@ def add_product_to_basket():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_dirs=['basket_compare_playground'])
+    # app.run(debug=True, extra_dirs=['basket_compare_playground'])
+    app.run(debug=True)

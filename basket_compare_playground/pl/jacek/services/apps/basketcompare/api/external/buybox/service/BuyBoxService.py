@@ -32,11 +32,11 @@ class BuyBoxService:
             buy_box_data = BuyBoxData(parsed_json)
             buy_box_data.sort_data_by_price()
 
-            logging.info(f"BuyBoxData: {str(buy_box_data)}")
+            # logging.info(f"BuyBoxData: {str(buy_box_data)}")
         except TypeError as e:
             logging.error(f"Error parsing json data: {json_data}")
             traceback.print_exc()
             return None
 
-        logging.info(f"BuyBoxData: {str(buy_box_data)}")
+        # logging.info(f"BuyBoxData: {str(buy_box_data)}")
         return buy_box_data

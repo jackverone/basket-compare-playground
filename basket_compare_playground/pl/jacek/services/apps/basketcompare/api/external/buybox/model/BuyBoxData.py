@@ -13,7 +13,7 @@ from typing import Dict, Optional
 
 class BuyBoxData:
     def __init__(self, json_data: Dict):
-        logging.info(f"BuyBoxData: json_data={json_data}")
+        # logging.info(f"BuyBoxData: json_data={json_data}")
 
         self.status = json_data.get('status')
         if isinstance(json_data.get('data'), dict):

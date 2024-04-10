@@ -2,11 +2,12 @@ import logging
 
 from flask import Flask, session, render_template, request
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import SELECTED_PRODUCTS_SESSION_KEY, BASKET_COMPARE_SESSION_KEY
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import (
+    SELECTED_PRODUCTS_SESSION_KEY, BASKET_COMPARE_SESSION_KEY)
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketController import BasketController
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketCompareController import \
     BasketCompareController
 
@@ -16,41 +17,22 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.B
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
     BasketCompareRepository
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.service.BuyBoxService import \
+    BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketService import BasketService
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
     BasketCompareService
-
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket_compare import BasketCompare
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
 
-
-# Use Flask's logger
-logger = app.logger
-
-# Create a custom logger
-# logger = logging.getLogger(__name__)
-
-# Create handlers
-c_handler = logging.StreamHandler()
-c_handler.setLevel(logging.WARNING)
-
-# Create formatters and add it to handlers
-c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-c_handler.setFormatter(c_format)
-
-# Add handlers to the logger
-logger.addHandler(c_handler)
-
-
+buybox_service = BuyBoxService()
 product_repository = ProductRepository()
 basket_repository = BasketRepository()
 basket_compare_repository = BasketCompareRepository()
 
-product_service = ProductService(product_repository)
+product_service = ProductService(product_repository, buybox_service)
 basket_service = BasketService(basket_repository)
 basket_compare_service = BasketCompareService(basket_compare_repository)
 
@@ -124,7 +106,7 @@ def add_product_to_basket():
     product = product_controller.search_product(name, info)
     session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
 
-    return render_template('product_search.html')
+    return render_template('product_search.html', products=None)
 
 
 if __name__ == '__main__':

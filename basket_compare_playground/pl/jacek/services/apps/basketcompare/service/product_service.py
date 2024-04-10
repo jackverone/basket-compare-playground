@@ -4,8 +4,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 
 
 class ProductService:
-    def __init__(self, repository):
-        self.buybox_service = BuyBoxService()
+    def __init__(self, repository, buybox_service):
+        self.buybox_service = buybox_service
         self.repository = repository
 
     def search_product(self, name, info):

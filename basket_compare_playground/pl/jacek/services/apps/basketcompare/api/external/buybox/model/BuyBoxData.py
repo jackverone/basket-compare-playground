@@ -47,6 +47,7 @@ class BuyBoxData:
             "status": self.status,
             "data": {k: v.to_dict() for k, v in self.data.items()} if hasattr(self, 'data') else None,
             "space_id": self.space_id,
+            # "space_id": int(self.space_id) if self.space_id else None,
             "tracking_url": self.tracking_url,
             "sort_type": self.sort_type,
             "use_css": self.use_css,

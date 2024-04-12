@@ -79,13 +79,15 @@ def get_baskets():
 
 @app.route('/basket_compares')
 def get_basket_compares():
+    logging.info(f"get_basket_compares()")
     # basket_compares = basket_compare_controller.get_all_basket_compares()
     # basket_compares = basket_compare_controller.get_basket_compare(
     #     "Alchemik", "Paulo+Coelho")
-    logging.info(f"get_basket_compares session: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
-    logging.info(f"get_basket_compares session: {session['bbc']}")
-    products = session.get(SELECTED_PRODUCTS_SESSION_KEY)
-    logging.info(f"get_basket_compares products: {products}")
+
+    if session[SELECTED_PRODUCTS_SESSION_KEY] is not None:
+        logging.info(f"get_basket_compares session elements: {len(session[SELECTED_PRODUCTS_SESSION_KEY])}")
+
+    products = session[SELECTED_PRODUCTS_SESSION_KEY]
     return render_template('basket_compares.html', basket_compares=products)
 
 
@@ -122,9 +124,16 @@ def add_product_to_basket():
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
-    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product.to_dict()
-    session["bbc"] = Product("Milk", 2.99, 1).to_dict()
-    logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
+    # session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product.to_dict()
+
+    products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
+    logging.info(f"product space_id type: {type(product.space_id)}")
+
+    # products[product.space_id] = product.to_dict()
+    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
+
+    # session["bbc"] = Product("Milk", 2.99, 1).to_dict()
+    # logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
 
     return render_template('product_search.html', products=None)
 

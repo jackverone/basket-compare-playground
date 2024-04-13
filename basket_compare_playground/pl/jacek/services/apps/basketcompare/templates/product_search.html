@@ -26,9 +26,11 @@
     </div>
     <div>
         {% if products is not none %}
-        <h1>Search Result</h1>
-
         <form action="/products/add" method="post">
+            <div>
+                <input type="submit" value="Add to Basket Compare" class="btn btn-primary">
+            </div>
+            <h1>Search Result</h1>
             <div>
                 <img src="{{ products.image }}" style="width: 256px; height 256px; object-fit: contain;" alt="image">
             </div>
@@ -37,13 +39,9 @@
             <div>Shops: {{ products.statistics.shops_count }}</div>
             <div>Min Price: {{ products.statistics.min_price }}</div>
             <div>Max Price: {{ products.statistics.max_price }}</div>
-            <div>
-                <input type="submit" value="Add to Basket Compare" class="btn btn-primary">
-            </div>
         </form>
         {% endif %}
     </div>
-
     <div class="col">
         <a href="/basket_compare" class="btn btn-primary">Basket Compare</a>
     </div>

@@ -7,18 +7,22 @@
 </head>
 <body>
 <h1>BuyBox Response</h1>
-<p><img src="{{ basket_compares.image }}" alt="image"></p>
+<p><img src="{{ basket_compare.image }}" alt="image"></p>
 <p>Name: {{ basket_compare.name }}</p>
 <p>Info: {{ basket_compare.info }}</p>
 
 <div class="container-fluid">
     <div class="row">
-        {% for key, datum in basket_compare.data.items() %}
+        {% for product in basket_compare %}
         <div class="col">
-            <p><img src="{{ datum.icon }}" width="32" height="32" alt="icon"></p>
-            <h3>{{ datum.name }}</h3>
-            <p>Name: {{ datum.name }}</p>
-            <p>Price: {{ datum.price }}</p>
+            {% for key, datum in product.data.items() %}
+            <div class="row">
+                <p><img src="{{ datum.icon }}" width="32" height="32" alt="icon"></p>
+                <h3>{{ datum.name }}</h3>
+                <p>Name: {{ datum.name }}</p>
+                <p>Price: {{ datum.price }}</p>
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>

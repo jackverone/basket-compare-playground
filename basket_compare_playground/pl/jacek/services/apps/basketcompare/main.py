@@ -13,7 +13,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.B
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
     ProductRepository
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketRepository import BasketRepository
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
     BasketCompareRepository
 
@@ -131,6 +131,7 @@ def add_product_to_basket():
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
+    basket_controller.add_product(product)
     session[SELECTED_PRODUCTS_SESSION_KEY][product.name] = product.to_dict()
     # logging.info(f"add_product_to_basket session products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
 

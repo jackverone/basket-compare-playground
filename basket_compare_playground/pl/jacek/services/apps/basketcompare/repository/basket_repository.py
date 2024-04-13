@@ -10,6 +10,10 @@ class BasketRepository:
         self.baskets = []
         self.products = []
 
+    def get_all_products(self):
+        logging.info(f"get_all_products() = {self.products}")
+        return self.products
+
     def add_product(self, product: ProductDataDto):
         logging.info(f"add_product {product}")
         self.products.append(product)
@@ -27,5 +31,5 @@ class BasketRepository:
     #
     # def get_basket(self, id):
     #     if id < len(self.baskets):
-    #         return self.baskets[id]
     #     return None
+    #         return self.baskets[id]

@@ -10,18 +10,12 @@ class ByType:
         self.ebook = Book(data.get('ebook', {}))
         self.book = Book(data.get('book', {}))
 
-    # audiobook: Book
-    # book: Book
-    # ebook: Book
-    #
-    # def __init__(self, json_data):
-    #     if json_data is None:
-    #         logging.error("ByType: json_data is None")
-    #         json_data = {}
-    #
-    #     self.audiobook = Book(json_data.get("audiobook", {}))
-    #     self.book = Book(json_data.get("book", {}))
-    #     self.ebook = Book(json_data.get("ebook", {}))
+    def to_dict(self) -> Dict:
+        return {
+            "audiobook": self.audiobook.to_dict(),
+            "ebook": self.ebook.to_dict(),
+            "book": self.book.to_dict()
+        }
 
     def __str__(self):
         return f"ByType(audiobook={self.audiobook}, book={self.book}, ebook={self.ebook})"

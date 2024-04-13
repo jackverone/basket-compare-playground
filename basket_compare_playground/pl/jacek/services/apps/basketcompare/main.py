@@ -13,7 +13,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.B
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
     ProductRepository
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketRepository import BasketRepository
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
     BasketCompareRepository
 
@@ -24,8 +24,16 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
     BasketCompareService
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+
 app = Flask(__name__)
 app.secret_key = 'your secret key'
+app.debug = True
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s'
+)
 
 buybox_service = BuyBoxService()
 product_repository = ProductRepository()
@@ -43,8 +51,17 @@ basket_compare_controller = BasketCompareController(basket_compare_service)
 
 @app.route('/')
 def home():
+    session.clear()
+
     if SELECTED_PRODUCTS_SESSION_KEY not in session:
+        logging.info(f"Creating session for {SELECTED_PRODUCTS_SESSION_KEY}")
         session[SELECTED_PRODUCTS_SESSION_KEY] = {}
+
+    if BASKET_COMPARE_SESSION_KEY not in session:
+        logging.info(f"Creating session for {BASKET_COMPARE_SESSION_KEY}")
+        session[BASKET_COMPARE_SESSION_KEY] = {}
+
+    logging.info(f"Session: {session}")
 
     return render_template('dashboard.html')
 
@@ -63,13 +80,22 @@ def get_baskets():
     return render_template('baskets.html', baskets=baskets)
 
 
-@app.route('/basket_compares')
-def get_basket_compares():
+@app.route('/basket_compare')
+def get_basket_compare():
+    logging.info(f"get_basket_compare()")
     # basket_compares = basket_compare_controller.get_all_basket_compares()
     # basket_compares = basket_compare_controller.get_basket_compare(
     #     "Alchemik", "Paulo+Coelho")
-    products = session[SELECTED_PRODUCTS_SESSION_KEY]
-    return render_template('basket_compares.html', basket_compares=products)
+
+    # if session[SELECTED_PRODUCTS_SESSION_KEY] is not None:
+    #     logging.info(f"get_basket_compares session products: {len(session[SELECTED_PRODUCTS_SESSION_KEY])}")
+    #
+    # if session[BASKET_COMPARE_SESSION_KEY] is not None:
+    #     logging.info(f"get_basket_compares session basket: {len(session[BASKET_COMPARE_SESSION_KEY])}")
+    #     logging.info(f"get_basket_compares session basket: {session[BASKET_COMPARE_SESSION_KEY]}")
+
+    products = basket_controller.get_all_products()
+    return render_template('basket_compare.html', basket_compare=products)
 
 
 @app.route('/basket_compares_buybox')
@@ -77,11 +103,12 @@ def get_basket_compares_buybox():
     # basket_compares = basket_compare_controller.get_all_basket_compares()
     basket_compares = basket_compare_controller.get_basket_compare(
         "Alchemik", "Paulo+Coelho")
-    return render_template('basket_compares.html', basket_compares=basket_compares)
+    return render_template('basket_compare.html', basket_compares=basket_compares)
 
 
 @app.route('/products/search')
 def search_products_view():
+    app.logger.info("search_products_view()")
     return render_template('product_search.html', products=None)
 
 
@@ -104,10 +131,31 @@ def add_product_to_basket():
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
-    session[SELECTED_PRODUCTS_SESSION_KEY][product.space_id] = product
+    basket_controller.add_product(product)
+
+    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
+    # products[product.name] = product.to_dict()
+    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
+    # logging.info(f"add_product_to_basket session products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
+
+    # logging.info(f"Before append: {session[BASKET_COMPARE_SESSION_KEY]}")
+    # keys = session[BASKET_COMPARE_SESSION_KEY]
+    # keys[product.name] = product.info
+    # session[BASKET_COMPARE_SESSION_KEY] = keys
+    # logging.info(f"After append: {session[BASKET_COMPARE_SESSION_KEY]}")
+
+    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
+    # logging.info(f"product space_id type: {type(product.space_id)}")
+
+    # products[product.space_id] = product.to_dict()
+    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
+
+    # session["bbc"] = Product("Milk", 2.99, 1).to_dict()
+    # logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
 
     return render_template('product_search.html', products=None)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_dirs=['basket_compare_playground'])
+    # app.run(debug=True, extra_dirs=['basket_compare_playground'])
+    app.run(debug=True)

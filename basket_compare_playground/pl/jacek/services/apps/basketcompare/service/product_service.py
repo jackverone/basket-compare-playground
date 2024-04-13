@@ -11,7 +11,7 @@ class ProductService:
     def search_product(self, name, info):
         logging.info(f'Searching product {name} with info {info}')
         buybox_result = self.buybox_service.get_buybox_data(name, info)
-        logging.info(f'BuyBoxData: {buybox_result}')
+        # logging.info(f'BuyBoxData: {buybox_result}')
         return buybox_result
 
     def create_product(self, name, price):

@@ -13,7 +13,7 @@ from typing import Dict, Optional
 
 class BuyBoxData:
     def __init__(self, json_data: Dict):
-        logging.info(f"BuyBoxData: json_data={json_data}")
+        # logging.info(f"BuyBoxData: json_data={json_data}")
 
         self.status = json_data.get('status')
         if isinstance(json_data.get('data'), dict):
@@ -42,10 +42,36 @@ class BuyBoxData:
         if hasattr(self, 'data'):
             self.data = dict(sorted(self.data.items(), key=lambda item: float(item[1].price)))
 
+    def to_dict(self) -> Dict:
+        return {
+            "status": self.status,
+            "data": {k: v.to_dict() for k, v in self.data.items()} if hasattr(self, 'data') else None,
+            "space_id": self.space_id,
+            # "space_id": int(self.space_id) if self.space_id else None,
+            "tracking_url": self.tracking_url,
+            "sort_type": self.sort_type,
+            "use_css": self.use_css,
+            "use_tabs": self.use_tabs,
+            "default_tab": self.default_tab,
+            "lead_color": self.lead_color,
+            "show_product": self.show_product,
+            "shop_style": self.shop_style,
+            "version": self.version,
+            "language": self.language,
+            "show_prices": self.show_prices,
+            "send_ga_client_id": self.send_ga_client_id,
+            "button_label": self.button_label,
+            "row_count": self.row_count,
+            "statistics": self.statistics.to_dict(),
+            "name": self.name,
+            "info": self.info,
+            "image": self.image
+        }
+
     def __str__(self):
         data_str = ''
-        if hasattr(self, 'data'):
-            data_str = ', '.join(f"{k}: {str(v)}" for k, v in self.data.items())
+        # if hasattr(self, 'data'):
+        #     data_str = ', '.join(f"{k}: {str(v)}" for k, v in self.data.items())
         return (f"BuyBoxData(status={self.status}, data={{{data_str}}}, space_id={self.space_id}, "
                 f"tracking_url={self.tracking_url}, sort_type={self.sort_type}, use_css={self.use_css}, "
                 f"use_tabs={self.use_tabs}, default_tab={self.default_tab}, lead_color={self.lead_color}, "

@@ -8,9 +8,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
     BuyBoxData
 
 from tests.pl.jacek.services.apps.basketcompare.api.external.buybox.model.buybox_json_model_examples import \
-    BUYBOX_JSON_EXAMPLE_ALCHEMIK
-from tests.pl.jacek.services.apps.basketcompare.api.external.buybox.model.buybox_json_model_examples import \
-    BUYBOX_JSON_EXAMPLE_KARMA
+    BUYBOX_JSON_EXAMPLE_ALCHEMIK, BUYBOX_JSON_EXAMPLE_KARMA
 
 
 class TestProductDataDto(TestCase):

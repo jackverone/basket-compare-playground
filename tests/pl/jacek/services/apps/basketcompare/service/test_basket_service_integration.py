@@ -46,5 +46,8 @@ class TestIntegrationBasketService(TestCase):
         all_products = self.basket_service.get_all_products()
         logging.info(f"all_products={all_products}")
 
+        basket_compare = self.basket_service.create_basket_compare(all_products)
+        # logging.info(f"basket_compare={basket_compare}")
+
         # self.basket_service.add_product()
         # self.fail()

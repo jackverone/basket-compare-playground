@@ -8,7 +8,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constant
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketCompareController import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_compare_controller import \
     BasketCompareController
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
@@ -85,6 +85,8 @@ def get_basket_compare():
     logging.info(f"get_basket_compare()")
 
     products = basket_controller.get_all_products()
+    basket_controller.create_basket_compare(products)
+
     return render_template('basket_compare.html', basket_compare=products)
 
 

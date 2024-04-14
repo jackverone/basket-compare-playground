@@ -1,8 +1,8 @@
 from typing import List, Set, Dict
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 
 class Basket:
     def __init__(self):
-        self.product_data_dtos = {}  # type: Dict[str, ProductDataDto]
+        self.products = Dict[int, Product]

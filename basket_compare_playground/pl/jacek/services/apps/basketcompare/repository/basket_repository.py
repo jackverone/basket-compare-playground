@@ -8,7 +8,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 class BasketRepository:
     def __init__(self):
         self.baskets = []
-        self.products = []
+        self.products = []  # type: List[ProductDataDto]
 
     def get_all_products(self):
         logging.info(f"get_all_products() = {self.products}")

@@ -83,16 +83,6 @@ def get_baskets():
 @app.route('/basket_compare')
 def get_basket_compare():
     logging.info(f"get_basket_compare()")
-    # basket_compares = basket_compare_controller.get_all_basket_compares()
-    # basket_compares = basket_compare_controller.get_basket_compare(
-    #     "Alchemik", "Paulo+Coelho")
-
-    # if session[SELECTED_PRODUCTS_SESSION_KEY] is not None:
-    #     logging.info(f"get_basket_compares session products: {len(session[SELECTED_PRODUCTS_SESSION_KEY])}")
-    #
-    # if session[BASKET_COMPARE_SESSION_KEY] is not None:
-    #     logging.info(f"get_basket_compares session basket: {len(session[BASKET_COMPARE_SESSION_KEY])}")
-    #     logging.info(f"get_basket_compares session basket: {session[BASKET_COMPARE_SESSION_KEY]}")
 
     products = basket_controller.get_all_products()
     return render_template('basket_compare.html', basket_compare=products)
@@ -133,29 +123,8 @@ def add_product_to_basket():
     product = product_controller.search_product(name, info)
     basket_controller.add_product(product)
 
-    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
-    # products[product.name] = product.to_dict()
-    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
-    # logging.info(f"add_product_to_basket session products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
-
-    # logging.info(f"Before append: {session[BASKET_COMPARE_SESSION_KEY]}")
-    # keys = session[BASKET_COMPARE_SESSION_KEY]
-    # keys[product.name] = product.info
-    # session[BASKET_COMPARE_SESSION_KEY] = keys
-    # logging.info(f"After append: {session[BASKET_COMPARE_SESSION_KEY]}")
-
-    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
-    # logging.info(f"product space_id type: {type(product.space_id)}")
-
-    # products[product.space_id] = product.to_dict()
-    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
-
-    # session["bbc"] = Product("Milk", 2.99, 1).to_dict()
-    # logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
-
     return render_template('product_search.html', products=None)
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, extra_dirs=['basket_compare_playground'])
     app.run(debug=True)

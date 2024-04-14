@@ -21,7 +21,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
     BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_compare_service import \
     BasketCompareService
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product

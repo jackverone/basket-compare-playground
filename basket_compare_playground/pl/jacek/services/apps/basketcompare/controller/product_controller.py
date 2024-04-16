@@ -10,7 +10,7 @@ class ProductController:
         self.repository = repository
 
     def search_product(self, name, info):
-        logging.info(f"Searching product {name} with info {info}")
+        logging.info(f"search_product({name}, {info})")
         return self.service.search_product(name, info)
 
     def create_product(self, name, price):

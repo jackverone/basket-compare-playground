@@ -14,6 +14,18 @@
       "price": "14.99",
       "pricePrefix": "od"
     },
+    "https://go.buybox.click/bbclick_17970_186268423": {
+      "id": 186268423,
+      "name": "TaniaKsiazka.pl",
+      "icon": "https://assets.buybox.click/9e1bc1cb3c94dd5d1170ac98a276c39a77d5e70f.png",
+      "logo": "https://assets.buybox.click/e6a7c997c7d1e4ead0cfad88e225a2e782813554.png",
+      "type": "ebook",
+      "typeId": 2,
+      "typeName": "ebook",
+      "shopId": 11,
+      "currency": "PLN",
+      "price": "35.90"
+    },
     "https://go.buybox.click/bbclick_17970_164751031": {
       "id": 164751031,
       "name": "tantis.pl",
@@ -25,6 +37,54 @@
       "shopId": 52,
       "currency": "PLN",
       "price": "23.41"
+    },
+    "https://go.buybox.click/bbclick_17970_193549937": {
+      "id": 193549937,
+      "name": "Allegro",
+      "icon": "https://assets.buybox.click/5cfed0a4601013ee129d8e0d55efd3a2975f74d9.png",
+      "logo": "https://assets.buybox.click/79106e0d410fa59e8884d455ca8d53ee244eb538.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 137,
+      "currency": "PLN",
+      "price": "23.65"
+    },
+    "https://go.buybox.click/bbclick_17970_160252438": {
+      "id": 160252438,
+      "name": "TaniaKsiazka.pl",
+      "icon": "https://assets.buybox.click/9e1bc1cb3c94dd5d1170ac98a276c39a77d5e70f.png",
+      "logo": "https://assets.buybox.click/e6a7c997c7d1e4ead0cfad88e225a2e782813554.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 11,
+      "currency": "PLN",
+      "price": "23.42"
+    },
+    "https://go.buybox.click/bbclick_17970_162141503": {
+      "id": 162141503,
+      "name": "empik.com",
+      "icon": "https://assets.buybox.click/bed0be80f349dd195cfd86e09cdc4e99a838c3d1.png",
+      "logo": "https://assets.buybox.click/195ca787bccb3a5e640ed79b355806500c9aaddb.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 78,
+      "currency": "PLN",
+      "price": "28.59"
+    },
+    "https://go.buybox.click/bbclick_17970_186284614": {
+      "id": 186284614,
+      "name": "empik.com",
+      "icon": "https://assets.buybox.click/bed0be80f349dd195cfd86e09cdc4e99a838c3d1.png",
+      "logo": "https://assets.buybox.click/195ca787bccb3a5e640ed79b355806500c9aaddb.png",
+      "type": "ebook",
+      "typeId": 2,
+      "typeName": "ebook",
+      "shopId": 78,
+      "currency": "PLN",
+      "price": "44.90"
     }
   },
   "spaceId": 7110,

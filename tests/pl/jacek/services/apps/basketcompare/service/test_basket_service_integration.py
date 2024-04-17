@@ -48,6 +48,8 @@ class TestIntegrationBasketService(TestCase):
 
         basket_compare = self.basket_service.create_basket_compare(all_products)
         # logging.info(f"basket_compare={basket_compare}")
+        for k, v in basket_compare.items():
+            logging.info(f"create_basket_compare: k={str(k)}, v={str(v)} \n")
 
         # self.basket_service.add_product()
         # self.fail()

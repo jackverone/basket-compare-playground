@@ -41,6 +41,8 @@ class BuyBoxData:
         if hasattr(self, 'data'):
             self.data = dict(sorted(self.data.items(), key=lambda item: float(item[1].price)))
 
+    # def sort_data_by_shop_id
+
     def to_dict(self) -> Dict:
         return {
             "status": self.status,

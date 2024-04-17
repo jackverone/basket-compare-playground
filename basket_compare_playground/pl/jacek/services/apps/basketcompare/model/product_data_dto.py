@@ -24,4 +24,7 @@ class ProductDataDto:
         }
 
     def __str__(self):
-        return f"ProductDataDto(product_data={str(self.product_data)})"
+        return f'ProductDataDto(product_data={str(self.product_data)})'
+
+    def __repr__(self):
+        return f'ProductDataDto(product_data={str(self.product_data)})'

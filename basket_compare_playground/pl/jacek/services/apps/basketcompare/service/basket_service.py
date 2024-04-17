@@ -23,42 +23,47 @@ class BasketService:
         #     product_data_dtos.append(product_data_dto)
         # logging.info(f"product_data_dtos={product_data_dtos}")
 
-        logging.info(f"get_all_products() = {all_products}")
+        # logging.info(f"get_all_products() = {all_products}")
+        logging.info(f"get_all_products() = all_products")
         return all_products
 
     def add_product(self, product: ProductDataDto):
-        logging.info(f"add_product {product}")
+        # logging.info(f"add_product {product}")
+        logging.info(f"add_product(product)")
         return self.repository.add_product(product)
 
     def create_basket_compare(self, products: List[ProductDataDto]):
-        logging.info(f"create_basket_compare({str(products)})")
+        # logging.info(f"create_basket_compare({str(products)})")
+        logging.info(f"create_basket_compare(products)")
         basket_compare = {}  # type: Dict[int, List[ProductDataDto]]
 
-        for initial_product in products:
-            # logging.info(f"initial_product={vars(initial_product)}")
-            # initial_product_data = initial_product.product_data
-            # logging.info(f"initial_product_data={vars(initial_product_data)}")
+        for i in range(len(products)):
+            initial_product = products[i]
+            # for initial_product in products:
             basket = []
 
-            for another_product in products:
-                logging.info(f"another_product={another_product}")
-                # another_product_data = another_product.product_data
-                # logging.info(f"another_product_data={another_product_data}")
-
-                # initial_product_data_datum: Dict[str, Datum] = initial_product_data.data
-                # logging.info(f"initial_product_data_datum={initial_product_data_datum}")
-                # another_product_data_datum: Dict[str, Datum] = another_product_data.data
-                # logging.info(f"another_product_data_datum={another_product_data_datum}")
+            for j in range(i + 1, len(products)):
+                another_product = products[j]
+                # for another_product in products:
 
                 for initial_k, initial_v in initial_product.product_data.data.items():
                     for another_k, another_v in another_product.product_data.data.items():
+                        logging.info(f"initial_v={str(initial_v.shop_id)}, another_v={str(another_v.shop_id)}")
                         if initial_v.shop_id == another_v.shop_id:
-                            basket.append(another_product)
+                            # and initial_v.price == another_v.price):
+                            if initial_v.shop_id in basket_compare:
+                                basket_compare[initial_v.shop_id].append(initial_product)
+                            else:
+                                basket_compare[initial_v.shop_id] = [initial_product]
 
-                basket_compare[initial_v.shop_id] = basket
+                        # if initial_v.shop_id == another_v.shop_id:
+                        #     basket.append(another_product)
+                        #     basket_compare[initial_v.shop_id] = basket
 
-        logging.info(f"create_basket_compare={str(basket_compare)}")
-        logging.info(f"create_basket_compare LEN={len(basket_compare)}")
-        for k, v in basket_compare.items():
-            logging.info(f"create_basket_compare: k={str(k)}, v={str(v)}")
+        # logging.info(f"create_basket_compare={str(basket_compare)}")
+        # logging.info(f"create_basket_compare LEN={len(basket_compare)}")
+        # for k, v in basket_compare.items():
+        #     logging.info(f"create_basket_compare: k={str(k)}, v={str(v)} \n")
+
+        # logging.info(f"create_basket_compare() = {basket_compare}")
         return basket_compare

@@ -15,7 +15,8 @@ class ProductService:
         buybox_result = self.buybox_service.get_buybox_data(name, info)
         product_data_dto = ProductDataDto()
         product_data_dto.convert_buybox_to_dto(buybox_result)
-        logging.info(f'search_product() = {product_data_dto}')
+        # logging.info(f'search_product() = {product_data_dto}')
+        logging.info(f'search_product() = product_data_dto')
         return product_data_dto
 
     def create_product(self, name, price):

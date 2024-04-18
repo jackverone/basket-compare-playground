@@ -49,7 +49,9 @@ class TestIntegrationBasketService(TestCase):
         basket_compare = self.basket_service.create_basket_compare(all_products)
         # logging.info(f"basket_compare={basket_compare}")
         for k, v in basket_compare.items():
-            logging.info(f"create_basket_compare: k={str(k)}, v={str(v)} \n")
+            logging.info(f"create_basket_compare: k={k}, v={v} \n")
+            for product in v:
+                logging.info(f"create_basket_compare: product={product.product_data.name} \n")
 
         # self.basket_service.add_product()
         # self.fail()

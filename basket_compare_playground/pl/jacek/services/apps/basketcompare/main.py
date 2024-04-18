@@ -88,9 +88,11 @@ def get_basket_compare():
     basket_compare = basket_controller.create_basket_compare(products)
     # logging.info(f"get_basket_compare() = {basket_compare}")
     for k, v in basket_compare.items():
-        logging.info(f"create_basket_compare: k={str(k)}, v={str(v)} \n")
+        logging.info(f"create_basket_compare: k={k}, v={v} \n")
+        for product in v:
+            logging.info(f"create_basket_compare: product={product} \n")
 
-    return render_template('basket_compare.html', basket_compare=products)
+    return render_template('basket_compare.html', basket_compare=basket_compare)
 
 
 @app.route('/basket_compares_buybox')

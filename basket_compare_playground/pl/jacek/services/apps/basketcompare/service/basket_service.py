@@ -35,35 +35,16 @@ class BasketService:
     def create_basket_compare(self, products: List[ProductDataDto]):
         # logging.info(f"create_basket_compare({str(products)})")
         logging.info(f"create_basket_compare(products)")
-        basket_compare = {}  # type: Dict[int, List[ProductDataDto]]
+        # basket_compare = {}  # type: Dict[(int, int), List[ProductDataDto]]
+        basket_compare = {}  # type: Dict[(int, int), list]
 
-        for i in range(len(products)):
-            initial_product = products[i]
-            # for initial_product in products:
-            basket = []
-
-            for j in range(i + 1, len(products)):
-                another_product = products[j]
-                # for another_product in products:
-
-                for initial_k, initial_v in initial_product.product_data.data.items():
-                    for another_k, another_v in another_product.product_data.data.items():
-                        logging.info(f"initial_v={str(initial_v.shop_id)}, another_v={str(another_v.shop_id)}")
-                        if initial_v.shop_id == another_v.shop_id:
-                            # and initial_v.price == another_v.price):
-                            if initial_v.shop_id in basket_compare:
-                                basket_compare[initial_v.shop_id].append(initial_product)
-                            else:
-                                basket_compare[initial_v.shop_id] = [initial_product]
-
-                        # if initial_v.shop_id == another_v.shop_id:
-                        #     basket.append(another_product)
-                        #     basket_compare[initial_v.shop_id] = basket
-
-        # logging.info(f"create_basket_compare={str(basket_compare)}")
-        # logging.info(f"create_basket_compare LEN={len(basket_compare)}")
-        # for k, v in basket_compare.items():
-        #     logging.info(f"create_basket_compare: k={str(k)}, v={str(v)} \n")
+        for product in products:
+            for k, v in product.product_data.data.items():
+                shop_id_id = (v.shop_id, v.id)
+                if shop_id_id in basket_compare:
+                    basket_compare[shop_id_id].append(v)
+                else:
+                    basket_compare[shop_id_id] = [v]
 
         # logging.info(f"create_basket_compare() = {basket_compare}")
         return basket_compare

@@ -42,3 +42,8 @@ class Datum:
         return (f"Datum(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
                 f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, currency={self.currency},"
                 f" price={self.price}, price_prefix={self.price_prefix})")
+
+    def __repr__(self):
+        return (f"Datum(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
+                f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, currency={self.currency},"
+                f" price={self.price}, price_prefix={self.price_prefix})")

@@ -12,13 +12,20 @@
 <!--<p>Info: {{ basket_compare.info }}</p>-->
 
 <div class="container-fluid">
-    {% for key, value in basket_compare.items() %}
-        {% for item in value %}
-            {% for product in value %}
-                <p>{{ product }}</p>
-            {% endfor %}
+    <div class="row">
+        {% for key, value in basket_compare.items() %}
+            <div class="col">
+                <h2>{{ key }}</h2>
+                {% for item in value %}
+                    <div class="row">
+                        {% for product in value %}
+                            <p>{{ product }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
         {% endfor %}
-    {% endfor %}
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -40,11 +40,13 @@ class BasketService:
 
         for product in products:
             for k, v in product.product_data.data.items():
-                shop_id_id = (v.shop_id, v.id)
-                if shop_id_id in basket_compare:
-                    basket_compare[shop_id_id].append(v)
+                # basket_compare_key = (v.shop_id, product.product_data.name)
+                basket_compare_key = (v.shop_id, v.id)
+                # basket_compare_key = v.shop_id
+                if basket_compare_key in basket_compare:
+                    basket_compare[basket_compare_key].append(v)
                 else:
-                    basket_compare[shop_id_id] = [v]
+                    basket_compare[basket_compare_key] = [v]
 
         # logging.info(f"create_basket_compare() = {basket_compare}")
         return basket_compare

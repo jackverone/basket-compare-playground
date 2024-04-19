@@ -30,7 +30,7 @@ class BuyBoxService:
             json_data = self.get_buybox(BUYBOX_API_ID, "name", name_value, "info", info_value)
             parsed_json = json.loads(json_data.text)
             buy_box_data = BuyBoxData(parsed_json)
-            buy_box_data.sort_data_by_price()
+            # buy_box_data.sort_data_by_price()
 
             # logging.info(f"BuyBoxData: {str(buy_box_data)}")
         except TypeError as e:

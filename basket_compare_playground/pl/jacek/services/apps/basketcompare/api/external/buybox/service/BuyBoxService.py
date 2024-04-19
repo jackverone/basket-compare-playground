@@ -23,7 +23,7 @@ class BuyBoxService:
         return response
 
     def get_buybox_data(self, name_value, info_value):
-        logging.info(f"Getting buybox data for {name_value} and {info_value}")
+        logging.info(f'get_buybox_data({name_value}, {info_value})')
 
         json_data = dict()
         try:

@@ -8,7 +8,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constant
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.BasketCompareController import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_compare_controller import \
     BasketCompareController
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
@@ -21,7 +21,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
     BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.BasketCompareService import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_compare_service import \
     BasketCompareService
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
@@ -83,19 +83,16 @@ def get_baskets():
 @app.route('/basket_compare')
 def get_basket_compare():
     logging.info(f"get_basket_compare()")
-    # basket_compares = basket_compare_controller.get_all_basket_compares()
-    # basket_compares = basket_compare_controller.get_basket_compare(
-    #     "Alchemik", "Paulo+Coelho")
-
-    # if session[SELECTED_PRODUCTS_SESSION_KEY] is not None:
-    #     logging.info(f"get_basket_compares session products: {len(session[SELECTED_PRODUCTS_SESSION_KEY])}")
-    #
-    # if session[BASKET_COMPARE_SESSION_KEY] is not None:
-    #     logging.info(f"get_basket_compares session basket: {len(session[BASKET_COMPARE_SESSION_KEY])}")
-    #     logging.info(f"get_basket_compares session basket: {session[BASKET_COMPARE_SESSION_KEY]}")
 
     products = basket_controller.get_all_products()
-    return render_template('basket_compare.html', basket_compare=products)
+    basket_compare = basket_controller.create_basket_compare(products)
+    # logging.info(f"get_basket_compare() = {basket_compare}")
+    for k, v in basket_compare.items():
+        logging.info(f"create_basket_compare: k={k}, v={v} \n")
+        for product in v:
+            logging.info(f"create_basket_compare: product={product} \n")
+
+    return render_template('basket_compare.html', basket_compare=basket_compare)
 
 
 @app.route('/basket_compares_buybox')
@@ -133,29 +130,8 @@ def add_product_to_basket():
     product = product_controller.search_product(name, info)
     basket_controller.add_product(product)
 
-    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
-    # products[product.name] = product.to_dict()
-    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
-    # logging.info(f"add_product_to_basket session products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
-
-    # logging.info(f"Before append: {session[BASKET_COMPARE_SESSION_KEY]}")
-    # keys = session[BASKET_COMPARE_SESSION_KEY]
-    # keys[product.name] = product.info
-    # session[BASKET_COMPARE_SESSION_KEY] = keys
-    # logging.info(f"After append: {session[BASKET_COMPARE_SESSION_KEY]}")
-
-    # products = session.get(SELECTED_PRODUCTS_SESSION_KEY, {})
-    # logging.info(f"product space_id type: {type(product.space_id)}")
-
-    # products[product.space_id] = product.to_dict()
-    # session[SELECTED_PRODUCTS_SESSION_KEY] = products
-
-    # session["bbc"] = Product("Milk", 2.99, 1).to_dict()
-    # logging.info(f"add_product_to_basket products: {session[SELECTED_PRODUCTS_SESSION_KEY]}")
-
     return render_template('product_search.html', products=None)
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, extra_dirs=['basket_compare_playground'])
     app.run(debug=True)

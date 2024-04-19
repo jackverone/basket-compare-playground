@@ -7,7 +7,6 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.Statistics import \
     Statistics
 
-
 from typing import Dict, Optional
 
 
@@ -42,6 +41,8 @@ class BuyBoxData:
         if hasattr(self, 'data'):
             self.data = dict(sorted(self.data.items(), key=lambda item: float(item[1].price)))
 
+    # def sort_data_by_shop_id
+
     def to_dict(self) -> Dict:
         return {
             "status": self.status,
@@ -70,8 +71,8 @@ class BuyBoxData:
 
     def __str__(self):
         data_str = ''
-        # if hasattr(self, 'data'):
-        #     data_str = ', '.join(f"{k}: {str(v)}" for k, v in self.data.items())
+        if hasattr(self, 'data'):
+            data_str = ', '.join(f"{k}: {str(v)}" for k, v in self.data.items())
         return (f"BuyBoxData(status={self.status}, data={{{data_str}}}, space_id={self.space_id}, "
                 f"tracking_url={self.tracking_url}, sort_type={self.sort_type}, use_css={self.use_css}, "
                 f"use_tabs={self.use_tabs}, default_tab={self.default_tab}, lead_color={self.lead_color}, "

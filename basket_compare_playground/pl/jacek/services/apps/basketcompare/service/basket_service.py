@@ -66,6 +66,15 @@ class BasketService:
                     product_names = []
                     break
 
+        final_basket_compare_keys_to_remove = []
+
+        for k, v in final_basket_compare.items():
+            if len(v) != products_len + 1:
+                final_basket_compare_keys_to_remove.append(k)
+
+        for k in final_basket_compare_keys_to_remove:
+            final_basket_compare.pop(k)
+
         # first_elements = {key: value[0] for key, value in initial_basket_compare.items() if value}
         # logging.info(f"create_basket_compare() = {first_elements}")
 

@@ -19,3 +19,7 @@ class BasketRepository:
         # logging.info(f"add_product {product}")
         logging.info(f"add_product(product)")
         self.products.append(product)
+
+    def clear_all_products(self):
+        logging.info(f"clear_all_products()")
+        self.products.clear()

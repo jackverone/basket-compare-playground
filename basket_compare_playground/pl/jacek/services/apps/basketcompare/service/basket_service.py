@@ -69,5 +69,10 @@ class BasketService:
         # first_elements = {key: value[0] for key, value in initial_basket_compare.items() if value}
         # logging.info(f"create_basket_compare() = {first_elements}")
 
+        # for k, v in final_basket_compare.items():
+        #     logging.info(f"create_basket_compare: k={k}, v={v} \n")
+        #     for product in v:
+        #         logging.info(f"create_basket_compare: product={product} \n")
+
         # logging.info(f"create_basket_compare() = {initial_basket_compare}")
         return final_basket_compare

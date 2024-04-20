@@ -48,6 +48,7 @@ basket_compare_controller = BasketCompareController(basket_compare_service)
 
 @app.route('/')
 def home():
+    basket_repository.clear_all_products()
     session.clear()
 
     # if SELECTED_PRODUCTS_SESSION_KEY not in session:
@@ -83,7 +84,7 @@ def get_basket_compare():
 
     products = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
-    app.logger.info(f"get_basket_compare() = {compares}")
+    # app.logger.info(f"get_basket_compare() = {basket_compare}")
     # for k, v in basket_compare.items():
     #     logging.info(f"create_basket_compare: k={k}, v={v} \n")
     #     for product in v:

@@ -1,31 +1,6 @@
 {
   "status": true,
   "data": {
-    "https://go.buybox.click/bbclick_17970_186274847": {
-      "id": 186274847,
-      "name": "Legimi",
-      "icon": "https://assets.buybox.click/5d826a78650f0ec8eca2900d28035ea605514be3.png",
-      "logo": "https://assets.buybox.click/6b6f67f35b5e1c138dd2ad2bd7032fda9528f2c5.png",
-      "type": "ebook",
-      "typeId": 2,
-      "typeName": "ebook",
-      "shopId": 9,
-      "currency": "PLN",
-      "price": "14.99",
-      "pricePrefix": "od"
-    },
-    "https://go.buybox.click/bbclick_17970_186268423": {
-      "id": 186268423,
-      "name": "TaniaKsiazka.pl",
-      "icon": "https://assets.buybox.click/9e1bc1cb3c94dd5d1170ac98a276c39a77d5e70f.png",
-      "logo": "https://assets.buybox.click/e6a7c997c7d1e4ead0cfad88e225a2e782813554.png",
-      "type": "ebook",
-      "typeId": 2,
-      "typeName": "ebook",
-      "shopId": 11,
-      "currency": "PLN",
-      "price": "35.90"
-    },
     "https://go.buybox.click/bbclick_17970_164751031": {
       "id": 164751031,
       "name": "tantis.pl",
@@ -37,18 +12,6 @@
       "shopId": 52,
       "currency": "PLN",
       "price": "23.41"
-    },
-    "https://go.buybox.click/bbclick_17970_193549937": {
-      "id": 193549937,
-      "name": "Allegro",
-      "icon": "https://assets.buybox.click/5cfed0a4601013ee129d8e0d55efd3a2975f74d9.png",
-      "logo": "https://assets.buybox.click/79106e0d410fa59e8884d455ca8d53ee244eb538.png",
-      "type": "book",
-      "typeId": 1,
-      "typeName": "książka",
-      "shopId": 137,
-      "currency": "PLN",
-      "price": "23.65"
     },
     "https://go.buybox.click/bbclick_17970_160252438": {
       "id": 160252438,
@@ -62,6 +25,150 @@
       "currency": "PLN",
       "price": "23.42"
     },
+    "https://go.buybox.click/bbclick_17970_183520720": {
+      "id": 183520720,
+      "name": "chodnikliteracki.pl",
+      "icon": "https://assets.buybox.click/3d2eb6d0501a9a87fe3f71f640f2b67fab11f5a8.jpeg",
+      "logo": "https://assets.buybox.click/589e4aa14b22af492d8f1af7b2e9adb3a4881765.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 227,
+      "currency": "PLN",
+      "price": "23.44"
+    },
+    "https://go.buybox.click/bbclick_17970_193549937": {
+      "id": 193549937,
+      "name": "Allegro",
+      "icon": "https://assets.buybox.click/5cfed0a4601013ee129d8e0d55efd3a2975f74d9.png",
+      "logo": "https://assets.buybox.click/79106e0d410fa59e8884d455ca8d53ee244eb538.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 137,
+      "currency": "PLN",
+      "price": "23.65"
+    },
+    "https://go.buybox.click/bbclick_17970_183537421": {
+      "id": 183537421,
+      "name": "Paskarz.pl",
+      "icon": "https://assets.buybox.click/77afe615981286572d080a24895e5eafa36fde27.png",
+      "logo": "https://assets.buybox.click/364a4bf331100772a2b1f31251345b6094e08a9a.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 320,
+      "currency": "PLN",
+      "price": "23.87"
+    },
+    "https://go.buybox.click/bbclick_17970_160572460": {
+      "id": 160572460,
+      "name": "zdrowepodejscie.pl",
+      "icon": "https://assets.buybox.click/5a5da280ce1a4935cd3adeb7fa3a88b340ff278d.png",
+      "logo": "https://assets.buybox.click/25da93d2541d502a7702bf55441065e7e0f57e6e.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 98,
+      "currency": "PLN",
+      "price": "24.69"
+    },
+    "https://go.buybox.click/bbclick_17970_160251275": {
+      "id": 160251275,
+      "name": "dadada.pl",
+      "icon": "https://assets.buybox.click/62e15063dc0c1ee92f64f6a0d9617f81bec99618.png",
+      "logo": "https://assets.buybox.click/8295129a626cff8cbace3a5537d39d99dc2f2711.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 92,
+      "currency": "PLN",
+      "price": "24.70"
+    },
+    "https://go.buybox.click/bbclick_17970_183514041": {
+      "id": 183514041,
+      "name": "matfel.pl",
+      "icon": "https://assets.buybox.click/6f2a646b1fc73a5aab3466fc80a6ff50dacdddb1.png",
+      "logo": "https://assets.buybox.click/659ae843254551ad98e65a0f2f9d0818fb196cef.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 647,
+      "currency": "PLN",
+      "price": "25.05"
+    },
+    "https://go.buybox.click/bbclick_17970_183514976": {
+      "id": 183514976,
+      "name": "znak.com.pl",
+      "icon": "https://assets.buybox.click/9c2a1e8ebc008685bc1482b96b7840c5b764115d.png",
+      "logo": "https://assets.buybox.click/aa5136c6e95b946b084d630664f86df235cc98e3.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 33,
+      "currency": "PLN",
+      "price": "25.59"
+    },
+    "https://go.buybox.click/bbclick_17970_183600551": {
+      "id": 183600551,
+      "name": "Woblink.com",
+      "icon": "https://assets.buybox.click/be9c57b35110461f63c11995aabc7260e7ee245d.png",
+      "logo": "https://assets.buybox.click/325d0fbabe6cbd5d6324031a4c57cc0ad78e2189.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 16,
+      "currency": "PLN",
+      "price": "25.59"
+    },
+    "https://go.buybox.click/bbclick_17970_187953557": {
+      "id": 187953557,
+      "name": "inbook.pl",
+      "icon": "https://assets.buybox.click/b3ed6ba0022f2309f3ac36c08915a277bf6c7a41.png",
+      "logo": "https://assets.buybox.click/9eb8b185d86852775ca7ae71f6b0aa5ed06b1251.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 665,
+      "currency": "PLN",
+      "price": "26.83"
+    },
+    "https://go.buybox.click/bbclick_17970_183502821": {
+      "id": 183502821,
+      "name": "Matras.pl",
+      "icon": "https://assets.buybox.click/63965f7afdd46748b19d33cd78c12b285ed39edc.png",
+      "logo": "https://assets.buybox.click/b8a9d020cd5cf402f055a24ba9480e616fdc4d00.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 379,
+      "currency": "PLN",
+      "price": "27.84"
+    },
+    "https://go.buybox.click/bbclick_17970_162822883": {
+      "id": 162822883,
+      "name": "Gandalf.com.pl",
+      "icon": "https://assets.buybox.click/5d31fcb2c58c075cf88a006be391bf25502e42f7.png",
+      "logo": "https://assets.buybox.click/a0c43154f975319ca08c5f1954934b37f77ebf8a.jpg",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 136,
+      "currency": "PLN",
+      "price": "27.93"
+    },
+    "https://go.buybox.click/bbclick_17970_176154159": {
+      "id": 176154159,
+      "name": "czytam.pl",
+      "icon": "https://assets.buybox.click/d40e5071c4fb9fea8966516227f42132877bf7df.png",
+      "logo": "https://assets.buybox.click/c4afd45c487e6b88a735d141a1ec10caba601f50.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 183,
+      "currency": "PLN",
+      "price": "28.02"
+    },
     "https://go.buybox.click/bbclick_17970_162141503": {
       "id": 162141503,
       "name": "empik.com",
@@ -74,17 +181,89 @@
       "currency": "PLN",
       "price": "28.59"
     },
-    "https://go.buybox.click/bbclick_17970_186284614": {
-      "id": 186284614,
-      "name": "empik.com",
-      "icon": "https://assets.buybox.click/bed0be80f349dd195cfd86e09cdc4e99a838c3d1.png",
-      "logo": "https://assets.buybox.click/195ca787bccb3a5e640ed79b355806500c9aaddb.png",
-      "type": "ebook",
-      "typeId": 2,
-      "typeName": "ebook",
-      "shopId": 78,
+    "https://go.buybox.click/bbclick_17970_160246785": {
+      "id": 160246785,
+      "name": "swiatksiazki.pl",
+      "icon": "https://assets.buybox.click/c3d0131fa99b10fe04c3ecdb44fe133e32d32448.png",
+      "logo": "https://assets.buybox.click/09b0618a804192ca0a9910f045f751e96ffee04e.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 18,
       "currency": "PLN",
-      "price": "44.90"
+      "price": "28.72"
+    },
+    "https://go.buybox.click/bbclick_17970_183898050": {
+      "id": 183898050,
+      "name": "Bookarest",
+      "icon": "https://assets.buybox.click/ed9dab4fbf379ad68c09d3ace81a77233e4db67e.png",
+      "logo": "https://assets.buybox.click/c6ad7f804c360f39b90799e1d08a0ed15a9af304.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 560,
+      "currency": "PLN",
+      "price": "28.76"
+    },
+    "https://go.buybox.click/bbclick_17970_160573381": {
+      "id": 160573381,
+      "name": "booktime.pl",
+      "icon": "https://assets.buybox.click/aa0c228bf5687b2dd2408979875a74ff7f5776ab.png",
+      "logo": "https://assets.buybox.click/cd60c44fbf00237527973b597f5bf0704c9ff3eb.jpeg",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 348,
+      "currency": "PLN",
+      "price": "28.84"
+    },
+    "https://go.buybox.click/bbclick_17970_183584955": {
+      "id": 183584955,
+      "name": "LaBotiga.pl",
+      "icon": "https://assets.buybox.click/7e071fad274585d23fb47111ab005e08f9c01f14.png",
+      "logo": "https://assets.buybox.click/93694e24c97c0cf719f9618c51253ae8be567452.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 55,
+      "currency": "PLN",
+      "price": "29.19"
+    },
+    "https://go.buybox.click/bbclick_17970_189339742": {
+      "id": 189339742,
+      "name": "grubytom.pl",
+      "icon": "https://assets.buybox.click/7eb447e934a8ef7cddfbc8cb29c3a71bbcea94b4.png",
+      "logo": "https://assets.buybox.click/0c50daef21ab4fc5f8318892f73d8d4ee66cb08c.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 656,
+      "currency": "PLN",
+      "price": "30.08"
+    },
+    "https://go.buybox.click/bbclick_17970_183621790": {
+      "id": 183621790,
+      "name": "Selkar.pl",
+      "icon": "https://assets.buybox.click/9fc4b1148252fef70f2876ebffb1e6f1e68dab88.png",
+      "logo": "https://assets.buybox.click/583422f614d49f2aea9233db1ea110f08b5d03a6.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 7,
+      "currency": "PLN",
+      "price": "30.47"
+    },
+    "https://go.buybox.click/bbclick_17970_160252151": {
+      "id": 160252151,
+      "name": "gildia.pl",
+      "icon": "https://assets.buybox.click/81145162638d8a577dc6a460ee193eaa03a78f20.png",
+      "logo": "https://assets.buybox.click/3de5129da3d2936ec31519a1348fe38f595b4a58.png",
+      "type": "book",
+      "typeId": 1,
+      "typeName": "książka",
+      "shopId": 506,
+      "currency": "PLN",
+      "price": "31.40"
     }
   },
   "spaceId": 7110,
@@ -103,16 +282,11 @@
   "buttonLabel": "Idź do sklepu »",
   "rowCount": 10,
   "statistics": {
-    "shopsCount": 28,
-    "minPrice": "14.99",
-    "maxPrice": "44.90",
+    "shopsCount": 22,
+    "minPrice": "23.41",
+    "maxPrice": "31.40",
     "currency": "PLN",
     "byType": {
-      "ebook": {
-        "shopsCount": 10,
-        "minPrice": "14.99",
-        "maxPrice": "44.90"
-      },
       "book": {
         "shopsCount": 22,
         "minPrice": "23.41",
@@ -122,5 +296,5 @@
   },
   "name": "Karma",
   "info": "Sadhguru",
-  "image": "https://files.legimi.com/images/8abc59827989745f77df3feb24f00fe7/cover.jpg"
+  "image": "https://resources.kfi.pl/image/86135bda-a196-4032-b225-86602186866f/orig/png"
 }

@@ -27,38 +27,47 @@ class BasketService:
     def create_basket_compare(self, products: List[ProductDataDto]):
         # logging.info(f"create_basket_compare({str(products)})")
         logging.info(f"create_basket_compare({len(products)})")
-        # basket_compare = {}  # type: Dict[(int, int), List[ProductDataDto]]
-        basket_compare = {}  # type: Dict[(int, int), list]
+        # initial_basket_compare = {}  # type: Dict[(int, int), List[ProductDataDto]]
+        initial_basket_compare = {}  # type: Dict[(int, int), list]
 
-        products_len = len(products)
         for product in products:
             for k, v in product.product_data.data.items():
                 basket_compare_key = (v.shop_id, v.name)
                 v.product_name = product.product_data.name
-                if basket_compare_key in basket_compare:
-                    basket_compare[basket_compare_key].append(v)
+                if basket_compare_key in initial_basket_compare:
+                    initial_basket_compare[basket_compare_key].append(v)
                 else:
-                    basket_compare[basket_compare_key] = [v]
+                    initial_basket_compare[basket_compare_key] = [v]
 
-        for basket_compare_key, products in basket_compare.items():
+        for basket_compare_key, products in initial_basket_compare.items():
             sorted_datum_products = sort_datum_products(products)
-            basket_compare[basket_compare_key] = sorted_datum_products
+            initial_basket_compare[basket_compare_key] = sorted_datum_products
 
         products_count = 0
-        for k, v in basket_compare.items():
-            # logging.info(f"create_basket_compare() = {k} -> {v}")
-            product_id = 0
-            for product in v:
-                if product.id != product_id:
-                    if products_count < products_len:
-                        products_count += 1
-                        product_id = product.id
-                        logging.info(f"create_basket_compare() = {k} -> {product}")
-                    else:
-                        products_count = 0
+        product_names = []
+        products_len = len(products)
 
-        # first_elements = {key: value[0] for key, value in basket_compare.items() if value}
+        final_basket_compare = {}
+
+        for k, v in initial_basket_compare.items():
+            for product in v:
+                if products_count <= products_len:
+                    if product.product_name not in product_names:
+                        products_count += 1
+                        product_names.append(product.product_name)
+                        # logging.info(f"product_names = {product_names}")
+                        # logging.info(f"create_basket_compare() = {k} -> {product}")
+                        if k in final_basket_compare:
+                            final_basket_compare[k].append(product)
+                        else:
+                            final_basket_compare[k] = [product]
+                else:
+                    products_count = 0
+                    product_names = []
+                    break
+
+        # first_elements = {key: value[0] for key, value in initial_basket_compare.items() if value}
         # logging.info(f"create_basket_compare() = {first_elements}")
 
-        # logging.info(f"create_basket_compare() = {basket_compare}")
-        return basket_compare
+        # logging.info(f"create_basket_compare() = {initial_basket_compare}")
+        return final_basket_compare

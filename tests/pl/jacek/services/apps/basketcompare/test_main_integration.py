@@ -25,11 +25,11 @@ class FlaskTestCase(unittest.TestCase):
         #                          follow_redirects=True)
 
         self.app.post('/products/add',
-                      data=dict(name='Karma', info='Sadhguru'),
+                      data=dict(name='Alchemik', info='Paulo Coelho'),
                       follow_redirects=True)
 
         self.app.post('/products/add',
-                      data=dict(name='Alchemik', info='Paulo Coelho'),
+                      data=dict(name='Bambuko', info='Nosowska'),
                       follow_redirects=True)
 
         response = self.app.get('/basket_compare', follow_redirects=True)

@@ -1,9 +1,6 @@
 import logging
 
-from flask import Flask, session, render_template, request
-
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import (
-    SELECTED_PRODUCTS_SESSION_KEY, BASKET_COMPARE_SESSION_KEY)
+from flask import Flask, render_template, request, session
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
@@ -27,7 +24,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 app = Flask(__name__)
-app.secret_key = 'your secret key'
+app.secret_key = 'your another secret key'
 app.debug = True
 
 logging.basicConfig(
@@ -51,17 +48,18 @@ basket_compare_controller = BasketCompareController(basket_compare_service)
 
 @app.route('/')
 def home():
+    basket_repository.clear_all_products()
     session.clear()
 
-    if SELECTED_PRODUCTS_SESSION_KEY not in session:
-        logging.info(f"Creating session for {SELECTED_PRODUCTS_SESSION_KEY}")
-        session[SELECTED_PRODUCTS_SESSION_KEY] = {}
-
-    if BASKET_COMPARE_SESSION_KEY not in session:
-        logging.info(f"Creating session for {BASKET_COMPARE_SESSION_KEY}")
-        session[BASKET_COMPARE_SESSION_KEY] = {}
-
-    logging.info(f"Session: {session}")
+    # if SELECTED_PRODUCTS_SESSION_KEY not in session:
+    #     logging.info(f"Creating session for {SELECTED_PRODUCTS_SESSION_KEY}")
+    #     session[SELECTED_PRODUCTS_SESSION_KEY] = {}
+    #
+    # if BASKET_COMPARE_SESSION_KEY not in session:
+    #     logging.info(f"Creating session for {BASKET_COMPARE_SESSION_KEY}")
+    #     session[BASKET_COMPARE_SESSION_KEY] = {}
+    #
+    # logging.info(f"Session: {session}")
 
     return render_template('dashboard.html')
 
@@ -82,25 +80,25 @@ def get_baskets():
 
 @app.route('/basket_compare')
 def get_basket_compare():
-    logging.info(f"get_basket_compare()")
+    app.logger.info(f"get_basket_compare()")
 
     products = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
-    # logging.info(f"get_basket_compare() = {basket_compare}")
-    for k, v in basket_compare.items():
-        logging.info(f"create_basket_compare: k={k}, v={v} \n")
-        for product in v:
-            logging.info(f"create_basket_compare: product={product} \n")
+    # app.logger.info(f"get_basket_compare() = {basket_compare}")
+    # for k, v in basket_compare.items():
+    #     logging.info(f"create_basket_compare: k={k}, v={v} \n")
+    #     for product in v:
+    #         logging.info(f"create_basket_compare: product={product} \n")
 
     return render_template('basket_compare.html', basket_compare=basket_compare)
 
 
-@app.route('/basket_compares_buybox')
-def get_basket_compares_buybox():
-    # basket_compares = basket_compare_controller.get_all_basket_compares()
-    basket_compares = basket_compare_controller.get_basket_compare(
-        "Alchemik", "Paulo+Coelho")
-    return render_template('basket_compare.html', basket_compares=basket_compares)
+# @app.route('/basket_compares_buybox')
+# def get_basket_compares_buybox():
+#     # basket_compares = basket_compare_controller.get_all_basket_compares()
+#     basket_compares = basket_compare_controller.get_basket_compare(
+#         "Alchemik", "Paulo+Coelho")
+#     return render_template('basket_compare.html', basket_compares=basket_compares)
 
 
 @app.route('/products/search')

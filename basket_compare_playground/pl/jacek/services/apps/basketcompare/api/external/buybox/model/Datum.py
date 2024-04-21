@@ -13,6 +13,7 @@ class Datum:
     def __init__(self, data: Dict):
         self.id = data.get('id')
         self.name = data.get('name')
+        self.product_name = ""
         self.icon = data.get('icon')
         self.logo = data.get('logo')
         self.type = data.get('type')
@@ -39,11 +40,10 @@ class Datum:
         }
 
     def __str__(self):
-        return (f"Datum(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
-                f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, currency={self.currency},"
-                f" price={self.price}, price_prefix={self.price_prefix})")
+        return (f"Datum(id={self.id}, name={self.name}, product_name={self.product_name}, icon={self.icon}, "
+                f"logo={self.logo}, type={self.type}, type_id={self.type_id}, type_name={self.type_name}, "
+                f"shop_id={self.shop_id}, currency={self.currency}, price={self.price}, "
+                f"price_prefix={self.price_prefix})")
 
     def __repr__(self):
-        return (f"Datum(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
-                f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, currency={self.currency},"
-                f" price={self.price}, price_prefix={self.price_prefix})")
+        return self.__str__()

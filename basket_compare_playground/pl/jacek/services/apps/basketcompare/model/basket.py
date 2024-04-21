@@ -6,3 +6,4 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 class Basket:
     def __init__(self):
         self.products = Dict[int, Product]
+        self.total_price = 0.0

@@ -43,9 +43,10 @@ class BasketService:
             sorted_datum_products = sort_datum_products(products)
             initial_basket_compare[basket_compare_key] = sorted_datum_products
 
-        products_count = 0
-        product_names = []
         products_len = len(products)
+        products_count = 0
+        products_total = 0.0
+        product_names = []
 
         final_basket_compare = {}
 
@@ -54,6 +55,7 @@ class BasketService:
                 if products_count <= products_len:
                     if product.product_name not in product_names:
                         products_count += 1
+                        products_total += float(product.price)
                         product_names.append(product.product_name)
                         # logging.info(f"product_names = {product_names}")
                         # logging.info(f"create_basket_compare() = {k} -> {product}")
@@ -63,8 +65,10 @@ class BasketService:
                             final_basket_compare[k] = [product]
                 else:
                     products_count = 0
+                    products_total = 0.0
                     product_names = []
                     break
+            # logging.info(f"products_total = {products_total}")
 
         final_basket_compare_keys_to_remove = []
 

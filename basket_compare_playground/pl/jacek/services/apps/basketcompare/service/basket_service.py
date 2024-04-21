@@ -102,9 +102,8 @@ class BasketService:
         # for k in final_basket_compare_keys_to_remove:
         #     final_basket_compare.pop(k)
 
-        for basket in final_basket_compare_model.baskets:
-            if len(basket.products) != products_len + 1:
-                final_basket_compare_model.baskets.remove(basket)
+        final_basket_compare_model.baskets = [basket for basket in final_basket_compare_model.baskets if
+                                              len(basket.products) == products_len + 1]
 
         # logging.info(f"final_basket_compare_model: {final_basket_compare_model}")
 

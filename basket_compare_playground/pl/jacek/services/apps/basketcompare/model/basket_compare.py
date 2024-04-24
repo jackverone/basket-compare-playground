@@ -13,6 +13,11 @@ class BasketCompare:
     def remove_basket(self, basket):
         self.baskets.remove(basket)
 
+    def to_dict(self):
+        return {
+            "baskets": [basket.to_dict() for basket in self.baskets]
+        }
+
     def __str__(self):
         return f"baskets={self.baskets}"
 

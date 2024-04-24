@@ -11,18 +11,18 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 
 class Datum:
     def __init__(self, data: Dict):
-        self.id = data.get('id')
-        self.name = data.get('name')
+        self.id = data.get("id")
+        self.name = data.get("name")
         self.product_name = ""
-        self.icon = data.get('icon')
-        self.logo = data.get('logo')
-        self.type = data.get('type')
-        self.type_id = data.get('typeId')
-        self.type_name = data.get('typeName')
-        self.shop_id = data.get('shopId')
-        self.currency = data.get('currency')
-        self.price = data.get('price')
-        self.price_prefix = data.get('pricePrefix')
+        self.icon = data.get("icon")
+        self.logo = data.get("logo")
+        self.type = data.get("type")
+        self.type_id = data.get("typeId")
+        self.type_name = data.get("typeName")
+        self.shop_id = data.get("shopId")
+        self.currency = data.get("currency")
+        self.price = data.get("price")
+        self.price_prefix = data.get("pricePrefix")
 
     def to_dict(self) -> Dict:
         return {

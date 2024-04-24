@@ -11,20 +11,20 @@ class ProductService:
         self.repository = repository
 
     def search_product(self, name, info):
-        logging.info(f'search_product({name}, {info})')
+        logging.info(f"search_product({name}, {info})")
         buybox_result = self.buybox_service.get_buybox_data(name, info)
         product_data_dto = ProductDataDto()
         product_data_dto.convert_buybox_to_dto(buybox_result)
-        # logging.info(f'search_product() = {product_data_dto}')
-        logging.info(f'search_product() = product_data_dto')
+        # logging.info(f"search_product() = {product_data_dto}")
+        logging.info(f"search_product() = product_data_dto")
         return product_data_dto
 
     def create_product(self, name, price):
-        logging.info(f'Creating product {name} with price {price}')
+        logging.info(f"Creating product {name} with price {price}")
         return self.repository.create_product(name, price)
 
     def get_product(self, name):
-        logging.info(f'Getting product {name}')
+        logging.info(f"Getting product {name}")
         return self.repository.get_product(name)
 
     def delete_product(self, name):

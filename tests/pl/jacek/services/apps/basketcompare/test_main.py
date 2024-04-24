@@ -12,33 +12,33 @@ class FlaskTestCase(unittest.TestCase):
         self.app.testing = True
 
     def test_search_product_view(self):
-        response = self.app.get('/products/search', follow_redirects=True)
+        response = self.app.get("/products/search", follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
     def test_search_product_post(self):
-        response = self.app.post('/products/search',
-                                 data=dict(name='test', info='test'),
+        response = self.app.post("/products/search",
+                                 data=dict(name="test", info="test"),
                                  follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
-    # @patch('basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller')
+    # @patch("basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller")
     # def test_search_products_post_returns_expected_products(self, mock_product_controller):
     #     # Mock the request.form object
-    #     request.form = {'name': 'test_name', 'info': 'test_info'}
+    #     request.form = {"name": "test_name", "info": "test_info"}
     #
     #     # Mock the product_controller.search_product method
-    #     mock_product_controller.search_product.return_value = [{'name': 'test_name', 'info': 'test_info'}]
+    #     mock_product_controller.search_product.return_value = [{"name": "test_name", "info": "test_info"}]
     #
     #     # Call the function
     #     result = search_products_post()
     #
     #     # Assert that the function returns the expected result
-    #     self.assertEqual(result, [{'name': 'test_name', 'info': 'test_info'}])
+    #     self.assertEqual(result, [{"name": "test_name", "info": "test_info"}])
     #
-    # @patch('basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller')
+    # @patch("basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller")
     # def test_search_products_post_returns_empty_when_no_products_found(self, mock_product_controller):
     #     # Mock the request.form object
-    #     request.form = {'name': 'test_name', 'info': 'test_info'}
+    #     request.form = {"name": "test_name", "info": "test_info"}
     #
     #     # Mock the product_controller.search_product method
     #     mock_product_controller.search_product.return_value = []
@@ -49,7 +49,7 @@ class FlaskTestCase(unittest.TestCase):
     #     # Assert that the function returns an empty list when no products are found
     #     self.assertEqual(result, [])
     #
-    # @patch('basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller')
+    # @patch("basket_compare_playground.pl.jacek.services.apps.basketcompare.main.product_controller")
     # def test_search_products_post_handles_missing_form_data(self, mock_product_controller):
     #     # Mock the request.form object
     #     request.form = {}
@@ -64,5 +64,5 @@ class FlaskTestCase(unittest.TestCase):
     #     self.assertEqual(result, [])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

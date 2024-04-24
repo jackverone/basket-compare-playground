@@ -6,6 +6,14 @@ class ShopInfo:
         self.shop_url = shop_url
         self.shop_icon_url = shop_icon_url
 
+    def to_dict(self):
+        return {
+            "shop_id": self.shop_id,
+            "shop_name": self.shop_name,
+            "shop_url": self.shop_url,
+            "shop_icon_url": self.shop_icon_url
+        }
+
     def __str__(self):
         return (f"shop_id={self.shop_id}, shop_name={self.shop_name}, shop_url={self.shop_url}, "
                 f"shop_logo_url={self.shop_icon_url}")

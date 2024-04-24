@@ -6,9 +6,9 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 
 class ByType:
     def __init__(self, data: Dict):
-        self.audiobook = Book(data.get('audiobook', {}))
-        self.ebook = Book(data.get('ebook', {}))
-        self.book = Book(data.get('book', {}))
+        self.audiobook = Book(data.get("audiobook", {}))
+        self.ebook = Book(data.get("ebook", {}))
+        self.book = Book(data.get("book", {}))
 
     def to_dict(self) -> Dict:
         return {

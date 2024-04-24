@@ -27,7 +27,7 @@ class TestIntegrationBasketService(TestCase):
     def setUp(self):
         logging.basicConfig(
             level=logging.INFO,
-            format='[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s'
+            format="[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s"
         )
 
         self.product_data_dto_alchemik = ProductDataDto()
@@ -73,6 +73,7 @@ class TestIntegrationBasketService(TestCase):
         # logging.info(f"all_products={all_products}")
 
         basket_compare = self.basket_service.create_basket_compare(all_products)
+        logging.info(f"basket_compare to_dict() = {basket_compare.to_dict()}")
         # logging.info(f"basket_compare={basket_compare}")
         # for k, v in basket_compare.items():
         #     logging.info(f"create_basket_compare: len={len(v)}, k={k}, v={v} \n")

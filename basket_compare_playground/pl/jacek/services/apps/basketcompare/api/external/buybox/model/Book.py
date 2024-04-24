@@ -4,9 +4,9 @@ from typing import Dict
 
 class Book:
     def __init__(self, data: Dict):
-        self.shops_count = data.get('shopsCount')
-        self.min_price = data.get('minPrice')
-        self.max_price = data.get('maxPrice')
+        self.shops_count = data.get("shopsCount")
+        self.min_price = data.get("minPrice")
+        self.max_price = data.get("maxPrice")
 
     def to_dict(self) -> Dict:
         return {

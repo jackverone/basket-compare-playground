@@ -12,6 +12,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.buybox_data_utils import \
     sort_datum_products
+from pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
 
 
 class BasketService:
@@ -28,6 +29,10 @@ class BasketService:
         # logging.info(f"add_product {product}")
         logging.info(f"add_product(product)")
         return self.repository.add_product(product)
+
+    def add_product(self, product: BuyBoxData):
+        logging.info(f"add_product(product)")
+        # map BuyBoxData to single Product use Mappers
 
     def create_basket_compare(self, products: List[ProductDataDto]):
         # logging.info(f"create_basket_compare({str(products)})")

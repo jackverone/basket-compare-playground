@@ -1,3 +1,4 @@
+import logging
 from unittest import TestCase
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
@@ -6,6 +7,13 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.produ
 
 
 class Test(TestCase):
+
+    def setUp(self):
+        logging.basicConfig(
+            level=logging.INFO,
+            format="[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s"
+        )
+
     def test_from_datum(self):
         # Given
         datum_data = {

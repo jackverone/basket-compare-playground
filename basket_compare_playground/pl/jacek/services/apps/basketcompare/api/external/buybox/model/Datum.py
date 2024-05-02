@@ -28,6 +28,7 @@ class Datum:
         return {
             "id": self.id,
             "name": self.name,
+            "product_name": self.product_name,
             "icon": self.icon,
             "logo": self.logo,
             "type": self.type,

@@ -11,9 +11,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 
 class Datum:
     def __init__(self, data: Dict):
-        self.id = data.get("id")
         self.name = data.get("name")
-        self.product_name = ""
+        # self.product_name = ""
         self.icon = data.get("icon")
         self.logo = data.get("logo")
         self.type = data.get("type")
@@ -26,9 +25,8 @@ class Datum:
 
     def to_dict(self) -> Dict:
         return {
-            "id": self.id,
             "name": self.name,
-            "product_name": self.product_name,
+            # "product_name": self.product_name,
             "icon": self.icon,
             "logo": self.logo,
             "type": self.type,
@@ -41,7 +39,9 @@ class Datum:
         }
 
     def __str__(self):
-        return (f"Datum(id={self.id}, name={self.name}, product_name={self.product_name}, icon={self.icon}, "
+        return (f"Datum(name={self.name}, "
+                # f"product_name={self.product_name}, "
+                f"icon={self.icon}, "
                 f"logo={self.logo}, type={self.type}, type_id={self.type_id}, type_name={self.type_name}, "
                 f"shop_id={self.shop_id}, currency={self.currency}, price={self.price}, "
                 f"price_prefix={self.price_prefix})")

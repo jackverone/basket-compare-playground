@@ -7,8 +7,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 def from_datum(datum: Datum) -> Product:
     logging.info(f"from_datum({datum})")
     product = Product(
-        datum.id,
-        datum.name, datum.product_name,
+        datum.name,
         datum.icon, datum.logo,
         datum.type, datum.type_id, datum.type_name,
         datum.shop_id, datum.currency,

@@ -12,7 +12,11 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.buybox_data_utils import \
     sort_datum_products
-from pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_meta_data_mapper import \
+    from_buybox_data
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 
 class BasketService:
@@ -30,15 +34,26 @@ class BasketService:
         logging.info(f"add_product(product)")
         return self.repository.add_product(product)
 
-    def add_product(self, product: BuyBoxData):
-        logging.info(f"add_product(product)")
-        # map BuyBoxData to single Product use Mappers
+    def add_product_(self, product: BuyBoxData) -> Product:
+        logging.info(f"add_product_(product)")
+
+        product_meta_data: ProductMetaData = from_buybox_data(product)
+        product: Product = from_datum(product)
+        product.add_product_meta_data(product_meta_data)
+
+        logging.info(f"add_product_() = {product}")
+        return self.repository.add_product_(product)
 
     def create_basket_compare(self, products: List[ProductDataDto]):
         # logging.info(f"create_basket_compare({str(products)})")
         logging.info(f"create_basket_compare({len(products)})")
         # initial_basket_compare = {}  # type: Dict[(int, int), List[ProductDataDto]]
         initial_basket_compare = {}  # type: Dict[(int, int), list]
+
+        # Use mappers to convert BuyBoxData to Product and ProductMetaData in for loop
+        # product_meta_data: ProductMetaData = from_buybox_data(product)
+        # product: Product = from_datum(product)
+        # product.add_product_meta_data(product_meta_data)
 
         for product in products:
             for k, v in product.product_data.data.items():

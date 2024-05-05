@@ -6,6 +6,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.produ
     from_buybox_data
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.BuyBoxData import \
     BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
 
 
 class Test(TestCase):
@@ -39,7 +40,7 @@ class Test(TestCase):
         buybox_data = BuyBoxData(json_data)
 
         # When
-        product_meta_data = from_buybox_data(buybox_data)
+        product_meta_data: ProductMetaData = from_buybox_data(buybox_data)
 
         # Then
         self.assertEqual(buybox_data.status, product_meta_data.status, "Status should be the same")

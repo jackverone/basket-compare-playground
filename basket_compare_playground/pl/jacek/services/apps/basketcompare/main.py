@@ -126,7 +126,8 @@ def add_product_to_basket():
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
-    basket_controller.add_product(product)
+    added_product: Product = basket_controller.add_product(product)
+    logging.info(f"Added product: {added_product}")
 
     return render_template("product_search.html", products=None)
 

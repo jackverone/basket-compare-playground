@@ -3,6 +3,7 @@ from typing import List
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
 
 
 class BasketController:
@@ -13,7 +14,7 @@ class BasketController:
         logging.info(f"get_all_products()")
         return self.service.get_all_products()
 
-    def add_product(self, product):
+    def add_product(self, product: BuyBoxData):
         # logging.info(f"add_product {product}")
         logging.info(f"add_product product")
         return self.service.add_product(product)

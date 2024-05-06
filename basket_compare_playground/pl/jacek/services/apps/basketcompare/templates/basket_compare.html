@@ -10,14 +10,18 @@
 
 <div class="container-fluid">
     <div class="row">
-        {% for key, value in basket_compare.items() %}
-        <div class="col-3">
-            <h2><img class="m-3" src="{{ value[0].icon }}" width="32" height="32" alt="icon">{{ key[1] }}</h2>
+        {% for basket in basket_compare.baskets %}
+        <div class="col-3 text-right">
+            <h2>
+                <img class="m-3" src="{{ basket.shop_info.shop_icon_url }}" width="32" height="32" alt="icon">
+                {{ basket.shop_info.shop_name }}
+            </h2>
+            {% for product in basket.products %}
             <ul>
-                {% for product in value %}
                 <li>{{ product.product_name }} {{ product.price }} {{ product.currency }}</li>
-                {% endfor %}
             </ul>
+            {% endfor %}
+            <p class="text-right">Total price: {{ basket.total_price | round(2) }}</p>
         </div>
         {% endfor %}
     </div>

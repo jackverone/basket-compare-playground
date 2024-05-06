@@ -7,11 +7,11 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 
 class Statistics:
     def __init__(self, data: Dict):
-        self.shops_count = data.get('shopsCount')
-        self.min_price = data.get('minPrice')
-        self.max_price = data.get('maxPrice')
-        self.currency = data.get('currency')
-        self.by_type = ByType(data.get('byType', {}))
+        self.shops_count = data.get("shopsCount")
+        self.min_price = data.get("minPrice")
+        self.max_price = data.get("maxPrice")
+        self.currency = data.get("currency")
+        self.by_type = ByType(data.get("byType", {}))
 
     def to_dict(self) -> Dict:
         return {

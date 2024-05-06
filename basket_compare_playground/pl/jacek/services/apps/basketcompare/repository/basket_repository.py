@@ -1,14 +1,15 @@
 import logging
 from typing import List
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 
 class BasketRepository:
     def __init__(self):
         self.baskets = []
         self.products = []  # type: List[ProductDataDto]
+        self.products_ = []  # type: List[Product]
 
     def get_all_products(self):
         # logging.info(f"get_all_products() = {self.products}")
@@ -19,6 +20,10 @@ class BasketRepository:
         # logging.info(f"add_product {product}")
         logging.info(f"add_product(product)")
         self.products.append(product)
+
+    def add_product_(self, product: Product):
+        logging.info(f"add_product_(product)")
+        self.products_.append(product)
 
     def clear_all_products(self):
         logging.info(f"clear_all_products()")

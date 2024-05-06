@@ -24,12 +24,12 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 app = Flask(__name__)
-app.secret_key = 'your another secret key'
+app.secret_key = "your another secret key"
 app.debug = True
 
 logging.basicConfig(
     level=logging.INFO,
-    format='[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s'
+    format="[%(asctime)s] %(levelname)s in %(filename)s %(module)s %(funcName)s: %(message)s"
 )
 
 buybox_service = BuyBoxService()
@@ -46,7 +46,7 @@ basket_controller = BasketController(basket_service)
 basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
-@app.route('/')
+@app.route("/")
 def home():
     basket_repository.clear_all_products()
     session.clear()
@@ -61,24 +61,24 @@ def home():
     #
     # logging.info(f"Session: {session}")
 
-    return render_template('dashboard.html')
+    return render_template("dashboard.html")
 
 
-@app.route('/products')
+@app.route("/products")
 def get_products():
     # products = product_controller.get_all_products()
     products = {}
-    return render_template('products.html', products=products)
+    return render_template("products.html", products=products)
 
 
-@app.route('/baskets')
+@app.route("/baskets")
 def get_baskets():
     # baskets = basket_controller.get_all_baskets()
     baskets = {}
-    return render_template('baskets.html', baskets=baskets)
+    return render_template("baskets.html", baskets=baskets)
 
 
-@app.route('/basket_compare')
+@app.route("/basket_compare")
 def get_basket_compare():
     app.logger.info(f"get_basket_compare()")
 
@@ -90,46 +90,47 @@ def get_basket_compare():
     #     for product in v:
     #         logging.info(f"create_basket_compare: product={product} \n")
 
-    return render_template('basket_compare.html', basket_compare=basket_compare)
+    return render_template("basket_compare.html", basket_compare=basket_compare)
 
 
-# @app.route('/basket_compares_buybox')
+# @app.route("/basket_compares_buybox")
 # def get_basket_compares_buybox():
 #     # basket_compares = basket_compare_controller.get_all_basket_compares()
 #     basket_compares = basket_compare_controller.get_basket_compare(
 #         "Alchemik", "Paulo+Coelho")
-#     return render_template('basket_compare.html', basket_compares=basket_compares)
+#     return render_template("basket_compare.html", basket_compares=basket_compares)
 
 
-@app.route('/products/search')
+@app.route("/products/search")
 def search_products_view():
     app.logger.info("search_products_view()")
-    return render_template('product_search.html', products=None)
+    return render_template("product_search.html", products=None)
 
 
-@app.route('/products/search', methods=['POST'])
+@app.route("/products/search", methods=["POST"])
 def search_products_post():
-    name = request.form['name']
-    info = request.form['info']
+    name = request.form["name"]
+    info = request.form["info"]
     logging.info(f"search_products_post({name}, {info})")
 
     products = product_controller.search_product(name, info)
     # products = None
 
-    return render_template('product_search.html', products=products)
+    return render_template("product_search.html", products=products)
 
 
-@app.route('/products/add', methods=['POST'])
+@app.route("/products/add", methods=["POST"])
 def add_product_to_basket():
-    name = request.form['name']
-    info = request.form['info']
+    name = request.form["name"]
+    info = request.form["info"]
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
     product = product_controller.search_product(name, info)
-    basket_controller.add_product(product)
+    added_product: Product = basket_controller.add_product(product)
+    logging.info(f"Added product: {added_product}")
 
-    return render_template('product_search.html', products=None)
+    return render_template("product_search.html", products=None)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

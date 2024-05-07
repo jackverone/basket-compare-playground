@@ -38,7 +38,7 @@ basket_repository = BasketRepository()
 basket_compare_repository = BasketCompareRepository()
 
 product_service = ProductService(product_repository, buybox_service)
-basket_service = BasketService(basket_repository)
+basket_service = BasketService(product_service, basket_repository)
 basket_compare_service = BasketCompareService(basket_compare_repository)
 
 product_controller = ProductController(product_service, product_repository)
@@ -113,10 +113,9 @@ def search_products_post():
     info = request.form["info"]
     logging.info(f"search_products_post({name}, {info})")
 
-    products = product_controller.search_product(name, info)
-    # products = None
+    product_meta_data = product_controller.search_product_meta_data(name, info)
 
-    return render_template("product_search.html", products=products)
+    return render_template("product_search.html", product_meta_data=product_meta_data)
 
 
 @app.route("/products/add", methods=["POST"])
@@ -125,8 +124,8 @@ def add_product_to_basket():
     info = request.form["info"]
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
-    product = product_controller.search_product(name, info)
-    added_product: Product = basket_controller.add_product(product)
+    # product = product_controller.search_product(name, info)
+    added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: {added_product}")
 
     return render_template("product_search.html", products=None)

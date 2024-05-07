@@ -35,7 +35,7 @@ class TestIntegrationBasketService(TestCase):
         self.product_data_dto_bambuko = ProductDataDto()
 
         self.product_service = ProductService(ProductRepository(), BuyBoxService())
-        self.basket_service = BasketService(BasketRepository())
+        self.basket_service = BasketService(self.product_service, BasketRepository())
 
     def test_create_basket_compare(self):
         with (open("pl/jacek/services/apps/basketcompare/api/external/buybox/model/buybox_example_alchemik.json")

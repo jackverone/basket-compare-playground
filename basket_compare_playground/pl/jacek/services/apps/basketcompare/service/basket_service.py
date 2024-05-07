@@ -1,6 +1,7 @@
 import logging
 from typing import List, Dict
 
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.shop_info import ShopInfo
@@ -20,7 +21,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 
 class BasketService:
-    def __init__(self, repository: BasketRepository):
+    def __init__(self, product_service: ProductService,  repository: BasketRepository):
+        self.product_service = product_service
         self.repository = repository
 
     def get_all_products(self):
@@ -29,10 +31,19 @@ class BasketService:
         logging.info(f"get_all_products() = all_products")
         return all_products
 
+    def search_and_add_product(self, name, info):
+        logging.info(f"search_and_add_product({name}, {info})")
+        product = self.product_service.search_product_full_data(name, info)
+        return self.add_product_from_api(product)
+
     def add_product(self, product: ProductDataDto):
         # logging.info(f"add_product {product}")
         logging.info(f"add_product(product)")
         return self.repository.add_product(product)
+
+    def add_product_from_api(self, product: BuyBoxData):
+        logging.info(f"add_product_from_api(product)")
+        return self.repository.add_product_from_api(product)
 
     def add_product_(self, product: BuyBoxData) -> Product:
         logging.info(f"add_product_(product)")
@@ -44,10 +55,8 @@ class BasketService:
         logging.info(f"add_product_() = {product}")
         return self.repository.add_product_(product)
 
-    def create_basket_compare(self, products: List[ProductDataDto]):
-        # logging.info(f"create_basket_compare({str(products)})")
+    def create_basket_compare(self, products: List[BuyBoxData]):
         logging.info(f"create_basket_compare({len(products)})")
-        # initial_basket_compare = {}  # type: Dict[(int, int), List[ProductDataDto]]
         initial_basket_compare = {}  # type: Dict[(int, int), list]
 
         # Use mappers to convert BuyBoxData to Product and ProductMetaData in for loop
@@ -56,9 +65,9 @@ class BasketService:
         # product.add_product_meta_data(product_meta_data)
 
         for product in products:
-            for k, v in product.product_data.data.items():
+            for k, v in product.data.items():
                 basket_compare_key = (v.shop_id, v.name)
-                v.product_name = product.product_data.name
+                v.product_name = product.name
                 if basket_compare_key in initial_basket_compare:
                     initial_basket_compare[basket_compare_key].append(v)
                 else:
@@ -67,6 +76,11 @@ class BasketService:
         for basket_compare_key, products in initial_basket_compare.items():
             sorted_datum_products = sort_datum_products(products)
             initial_basket_compare[basket_compare_key] = sorted_datum_products
+
+        logging.info(f"create_basket_compare() = {initial_basket_compare}")
+
+        '''
+        
 
         products_len = len(products)
         products_count = 0
@@ -136,4 +150,6 @@ class BasketService:
         #         logging.info(f"create_basket_compare: product={product} \n")
 
         # logging.info(f"create_basket_compare() = {initial_basket_compare}")
-        return final_basket_compare_model
+        '''
+
+        return initial_basket_compare

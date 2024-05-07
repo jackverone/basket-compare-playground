@@ -14,12 +14,17 @@ class BasketController:
         logging.info(f"get_all_products()")
         return self.service.get_all_products()
 
+    def search_and_add_product(self, name, info):
+        logging.info(f"search_and_add_product({name}, {info})")
+        product = self.service.search_and_add_product(name, info)
+        return self.service.add_product_from_api(product)
+
     def add_product(self, product: BuyBoxData):
         # logging.info(f"add_product {product}")
         logging.info(f"add_product product")
-        return self.service.add_product(product)
+        return self.service.add_product_from_api(product)
 
-    def create_basket_compare(self, products: List[ProductDataDto]):
+    def create_basket_compare(self, products: List[BuyBoxData]):
         # logging.info(f"create_basket_compare({products})")
         logging.info(f"create_basket_compare(products)")
         return self.service.create_basket_compare(products)

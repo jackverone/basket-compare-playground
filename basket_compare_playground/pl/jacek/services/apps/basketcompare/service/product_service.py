@@ -4,6 +4,9 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
     BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_meta_data_mapper import \
+    from_buybox_data
 
 
 class ProductService:
@@ -11,13 +14,20 @@ class ProductService:
         self.buybox_service = buybox_service
         self.repository = repository
 
-    def search_product(self, name, info) -> BuyBoxData:
-        logging.info(f"search_product({name}, {info})")
+    def search_product_meta_data(self, name, info) -> ProductMetaData:
+        logging.info(f"search_product_meta_data({name}, {info})")
+        buybox_result = self.buybox_service.get_buybox_data(name, info)
+        product_meta_data = from_buybox_data(buybox_result)
+        logging.info(f"search_product_meta_data() = {product_meta_data}")
+        return product_meta_data
+
+    def search_product_full_data(self, name, info) -> BuyBoxData:
+        logging.info(f"search_product_full_data({name}, {info})")
         buybox_result = self.buybox_service.get_buybox_data(name, info)
         product_data_dto = ProductDataDto()
         product_data_dto.convert_buybox_to_dto(buybox_result)
         # logging.info(f"search_product() = {product_data_dto}")
-        logging.info(f"search_product() = product_data_dto")
+        logging.info(f"search_product_full_data() = product_data_dto")
         return buybox_result
 
     def create_product(self, name, price):

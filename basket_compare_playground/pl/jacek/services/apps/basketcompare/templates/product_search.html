@@ -32,15 +32,15 @@
             </div>
             <h1>Search Result</h1>
             <div>
-                <img src="{{ products.image }}" style="width: 256px; height 256px; object-fit: contain;" alt="image">
+                <img src="{{ product_meta_data.image }}" style="width: 256px; height 256px; object-fit: contain;" alt="image">
             </div>
             <div>
-                Name: {{ products.name }}
-                <input type="hidden" name="name" value="{{ products.name }}">
+                Name: {{ product_meta_data.name }}
+                <input type="hidden" name="name" value="{{ product_meta_data.name }}">
             </div>
             <div>
-                Author: {{ products.info }}
-                <input type="hidden" name="info" value="{{ products.info }}">
+                Author: {{ product_meta_data.info }}
+                <input type="hidden" name="info" value="{{ product_meta_data.info }}">
             </div>
         </form>
         {% endif %}

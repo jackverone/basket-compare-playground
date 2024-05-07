@@ -2,11 +2,11 @@ import logging
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.service.BuyBoxService import \
     BuyBoxService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_data_dto import ProductDataDto
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.buybox_data_mapper import from_buybox_data
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_meta_data_mapper import \
-    from_buybox_data
+    extract_product_meta_data
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
 
 
 class ProductService:
@@ -17,18 +17,17 @@ class ProductService:
     def search_product_meta_data(self, name, info) -> ProductMetaData:
         logging.info(f"search_product_meta_data({name}, {info})")
         buybox_result = self.buybox_service.get_buybox_data(name, info)
-        product_meta_data = from_buybox_data(buybox_result)
+        product_meta_data = extract_product_meta_data(buybox_result)
         logging.info(f"search_product_meta_data() = {product_meta_data}")
         return product_meta_data
 
-    def search_product_full_data(self, name, info) -> BuyBoxData:
+    def search_product_full_data(self, name, info) -> ProductDto:
         logging.info(f"search_product_full_data({name}, {info})")
         buybox_result = self.buybox_service.get_buybox_data(name, info)
-        product_data_dto = ProductDataDto()
-        product_data_dto.convert_buybox_to_dto(buybox_result)
-        # logging.info(f"search_product() = {product_data_dto}")
-        logging.info(f"search_product_full_data() = product_data_dto")
-        return buybox_result
+        products = from_buybox_data(buybox_result)
+        product_dto = ProductDto(products)
+        logging.info(f"search_product_full_data() = {product_dto}")
+        return product_dto
 
     def create_product(self, name, price):
         logging.info(f"Creating product {name} with price {price}")

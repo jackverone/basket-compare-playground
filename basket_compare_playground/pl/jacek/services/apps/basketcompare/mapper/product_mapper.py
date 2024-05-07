@@ -13,5 +13,5 @@ def from_datum(datum: Datum) -> Product:
         datum.shop_id, datum.currency,
         datum.price, datum.price_prefix
     )
-    logging.info(f"from_datum() = {product}")
+    logging.info(f"from_datum() = product")
     return product

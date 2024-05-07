@@ -124,7 +124,6 @@ def add_product_to_basket():
     info = request.form["info"]
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
-    # product = product_controller.search_product(name, info)
     added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: {added_product}")
 

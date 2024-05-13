@@ -3,8 +3,10 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 class Product:
 
-    def __init__(self, name, icon, logo, type, type_id, type_name, shop_id, currency, price,
-                 price_prefix, product_meta_data: ProductMetaData = None, product_name="", product_url=""):
+    def __init__(self, id, name, icon, logo, type, type_id, type_name, shop_id, currency, price,
+                 price_prefix, product_meta_data: ProductMetaData = None,
+                 product_name: str = "", product_url: str = ""):
+        self.id = id
         self.name = name
         self.icon = icon
         self.logo = logo
@@ -37,6 +39,7 @@ class Product:
 
     def __dict__(self):
         return {
+            "id": self.id,
             "name": self.name,
             "icon": self.icon,
             "logo": self.logo,
@@ -55,10 +58,10 @@ class Product:
         return self.__dict__()
 
     def __str__(self):
-        return f"Product(name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, " \
-               f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, " \
-               f"currency={self.currency}, price={self.price}, price_prefix={self.price_prefix}, " \
-               f"product_name={self.product_name}, product_url={self.product_url})"
+        return (f"Product(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
+                f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, "
+                f"currency={self.currency}, price={self.price}, price_prefix={self.price_prefix}, "
+                f"product_name={self.product_name}, product_url={self.product_url})")
 
     def __repr__(self):
         return self.__str__()

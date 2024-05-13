@@ -13,8 +13,8 @@
         {% for basket in basket_compare.baskets %}
         <div class="col-3 text-right">
             <h2>
-                <img class="m-3" src="{{ basket.shop_info.shop_icon_url }}" width="32" height="32" alt="icon">
-                {{ basket.shop_info.shop_name }}
+                <img class="m-3" src="{{ basket.shop_info.icon_url }}" width="32" height="32" alt="icon">
+                {{ basket.shop_info.name }}
             </h2>
             {% for product in basket.products %}
             <ul>

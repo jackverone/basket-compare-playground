@@ -7,6 +7,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket_compare import BasketCompare
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
 
 
 class BasketService:
@@ -30,6 +32,20 @@ class BasketService:
     def add_product(self, product: ProductDto):
         logging.info(f"add_product(product)")
         return self.repository.add_product(product)
+
+    def create_basket_compare_(self, product_dtos: List[ProductDto]) -> BasketCompare:
+        basket_compare: BasketCompare = BasketCompare()
+        basket_compare_dict = {}  # type: Dict[(int, int), List[Basket]]
+
+        for product_dto in product_dtos:
+            basket = Basket()
+            basket.products = product_dto.products
+            basket_compare.add_basket(basket)
+
+            for product in product_dto.products:
+                basket_compare_dict_key = (product.shop_id, product.product_name)
+
+        return basket_compare
 
     def create_basket_compare(self, product_dtos: List[ProductDto]):
         logging.info(f"create_basket_compare({len(product_dtos)})")

@@ -3,12 +3,15 @@ from typing import Dict, List
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.buybox_data_utils import \
-    sort_datum_products
+    sort_products_by_price
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket_compare import BasketCompare
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.shop_info_mapper import \
+    map_shop_info_from_product
 
 
 class BasketService:
@@ -35,15 +38,45 @@ class BasketService:
 
     def create_basket_compare_(self, product_dtos: List[ProductDto]) -> BasketCompare:
         basket_compare: BasketCompare = BasketCompare()
-        basket_compare_dict = {}  # type: Dict[(int, int), List[Basket]]
+        basket_product_classify_dict = {}  # type: Dict[(int, int), Basket]
 
-        for product_dto in product_dtos:
-            basket = Basket()
-            basket.products = product_dto.products
+        for basket in product_dtos:
+            for product in basket.products:
+                shop_info = map_shop_info_from_product(product)
+
+                basket = Basket()
+                basket.shop_info = shop_info
+
+                basket_product_classify_dict.setdefault(product.shop_id, basket)
+                basket_product_classify_dict[product.shop_id].products.append(product)
+
+        for basket_product_classify_dict_key, basket in basket_product_classify_dict.items():
+            basket.products = sort_products_by_price(basket.products)
             basket_compare.add_basket(basket)
 
-            for product in product_dto.products:
-                basket_compare_dict_key = (product.shop_id, product.product_name)
+        products_len = len(product_dtos)
+        logging.info(f"products_len = {products_len}")
+        products_count = 0
+        products_total = 0.0
+        product_names = []
+
+        for basket in basket_compare.baskets:
+            summed_products = []  # type: List[Product]
+            for product in basket.products:
+                products_count += 1
+                if products_count <= products_len:
+                    if product.product_name not in product_names:
+                        product_names.append(product.product_name)
+                        products_total += float(product.price)
+                        summed_products.append(product)
+                else:
+                    basket.total_price = products_total
+                    basket.products = summed_products
+
+                    products_count = 0
+                    products_total = 0.0
+                    product_names = []
+                    break
 
         return basket_compare
 
@@ -61,7 +94,7 @@ class BasketService:
                     initial_basket_compare[basket_compare_key] = [product]
 
         for basket_compare_key, product_dtos in initial_basket_compare.items():
-            sorted_datum_products = sort_datum_products(product_dtos)
+            sorted_datum_products = sort_products_by_price(product_dtos)
             initial_basket_compare[basket_compare_key] = sorted_datum_products
 
         logging.info(f"create_basket_compare() = {initial_basket_compare}")

@@ -5,7 +5,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 
 def extract_product_meta_data(buybox_data: BuyBoxData) -> ProductMetaData:
-    logging.info(f"extract_product_meta_data(buybox_data)")
+    # logging.info(f"extract_product_meta_data(buybox_data)")
     product_meta_data = ProductMetaData(
         buybox_data.status,
         buybox_data.space_id,
@@ -28,5 +28,5 @@ def extract_product_meta_data(buybox_data: BuyBoxData) -> ProductMetaData:
         buybox_data.info,
         buybox_data.image
     )
-    logging.info(f"extract_product_meta_data(...) = product_meta_data")
+    # logging.info(f"extract_product_meta_data(...) = product_meta_data")
     return product_meta_data

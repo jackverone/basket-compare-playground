@@ -2,7 +2,7 @@ from typing import List
 from unittest import TestCase
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.buybox_data_utils import \
-    sort_datum_products
+    sort_products_by_price
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.Datum import Datum
 
 
@@ -20,7 +20,7 @@ class Test(TestCase):
 
         print(f"basket before sorting: {basket}")
 
-        sorted_datum = sort_datum_products(basket)
+        sorted_datum = sort_products_by_price(basket)
 
         print(f"basket after sorting: {sorted_datum}")
 

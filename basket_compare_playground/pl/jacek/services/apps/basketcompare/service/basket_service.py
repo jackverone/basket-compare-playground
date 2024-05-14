@@ -73,7 +73,7 @@ class BasketService:
                 unique_products_dict[product.product_name] = product
                 total_price += product.price
 
-            if len(unique_products_dict.values()) != 2:
+            if len(unique_products_dict.values()) != len(product_dtos):
                 basket_compare.remove_basket(basket)
 
             basket.total_price = total_price

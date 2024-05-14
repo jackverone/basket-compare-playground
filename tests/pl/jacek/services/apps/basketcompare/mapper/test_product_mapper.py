@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.Datum import Datum
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_mapper import from_datum
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_mapper import map_product_from_datum
 
 
 class Test(TestCase):
@@ -34,7 +34,7 @@ class Test(TestCase):
         datum_dict = datum.to_dict()
 
         # When
-        product: Product = from_datum(datum)
+        product: Product = map_product_from_datum(datum)
         product_dict = product.to_dict()
 
         # Then

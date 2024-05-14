@@ -3,7 +3,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 class Product:
 
-    def __init__(self, id, name, icon, logo, type, type_id, type_name, shop_id, currency, price,
+    def __init__(self, id, name, icon, logo, type, type_id, type_name, shop_id, currency, price: float,
                  price_prefix, product_meta_data: ProductMetaData = None,
                  product_name: str = "", product_url: str = ""):
         self.id = id

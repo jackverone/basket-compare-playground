@@ -12,7 +12,7 @@ def map_product_from_datum(datum: Datum) -> Product:
         datum.icon, datum.logo,
         datum.type, datum.type_id, datum.type_name,
         datum.shop_id, datum.currency,
-        datum.price, datum.price_prefix
+        float(datum.price), datum.price_prefix
     )
     # logging.info(f"map_product_from_datum() = product")
     return product

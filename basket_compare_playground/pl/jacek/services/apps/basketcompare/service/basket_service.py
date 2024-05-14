@@ -2,7 +2,7 @@ import logging
 from typing import Dict, List
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.buybox_data_utils import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.model_utils import \
     sort_products_by_price
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
@@ -42,10 +42,8 @@ class BasketService:
 
         for basket in product_dtos:
             for product in basket.products:
-                shop_info = map_shop_info_from_product(product)
-
                 basket = Basket()
-                basket.shop_info = shop_info
+                basket.shop_info = map_shop_info_from_product(product)
 
                 basket_product_classify_dict.setdefault(product.shop_id, basket)
                 basket_product_classify_dict[product.shop_id].products.append(product)
@@ -54,30 +52,48 @@ class BasketService:
             basket.products = sort_products_by_price(basket.products)
             basket_compare.add_basket(basket)
 
-        products_len = len(product_dtos)
-        logging.info(f"products_len = {products_len}")
-        products_count = 0
-        products_total = 0.0
-        product_names = []
+        # products_len = len(product_dtos)
+        # logging.info(f"products_len = {products_len}")
+        # products_count = 0
+        # products_total = 0.0
+        # product_names = []
+        unique_products_dict = {}
+        total_price = 0.0
 
-        for basket in basket_compare.baskets:
-            summed_products = []  # type: List[Product]
+        for basket in basket_compare.baskets.copy():
             for product in basket.products:
-                products_count += 1
-                if products_count <= products_len:
-                    if product.product_name not in product_names:
-                        product_names.append(product.product_name)
-                        products_total += float(product.price)
-                        summed_products.append(product)
-                else:
-                    basket.total_price = products_total
-                    basket.products = summed_products
+                logging.info(f"product = {product}")
+                if (product.product_name in unique_products_dict and
+                        unique_products_dict[product.product_name].price <= product.price):
+                    continue
+                elif product.product_name in unique_products_dict:
+                    total_price -= unique_products_dict[product.product_name].price
 
-                    products_count = 0
-                    products_total = 0.0
-                    product_names = []
-                    break
+                unique_products_dict[product.product_name] = product
+                total_price += product.price
 
+            if len(unique_products_dict.values()) != 2:
+                basket_compare.remove_basket(basket)
+
+            basket.total_price = total_price
+            basket.products = list(unique_products_dict.values())
+            total_price = 0.0
+            unique_products_dict = {}
+
+            #     products_count += 1
+            #     if products_count <= products_len:
+            #         if product.product_name not in product_names:
+            #             product_names.append(product.product_name)
+            #             products_total += float(product.price)
+            #             summed_products.append(product)
+            #     else:
+            #         basket.total_price = products_total
+            #         basket.products = summed_products
+            #
+            #         products_count = 0
+            #         products_total = 0.0
+            #         product_names = []
+            #         break
         return basket_compare
 
     def create_basket_compare(self, product_dtos: List[ProductDto]):

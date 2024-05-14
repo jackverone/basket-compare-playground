@@ -1,7 +1,7 @@
 from typing import List
 from unittest import TestCase
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.model_utils import \
+from pl.jacek.services.apps.basketcompare.model.utils.model_utils import \
     sort_products_by_price
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model.Datum import Datum
 

@@ -1,15 +1,13 @@
 import logging
 from typing import Dict, List
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.utils.model_utils import \
-    sort_products_by_price
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.utils.model_utils import \
+    sort_baskets_by_total_price, sort_products_by_price
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket_compare import BasketCompare
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.shop_info_mapper import \
     map_shop_info_from_product
 
@@ -40,6 +38,7 @@ class BasketService:
         basket_compare: BasketCompare = BasketCompare()
         basket_product_classify_dict = {}  # type: Dict[(int, int), Basket]
 
+        # classify products by shop_id for basket creation
         for basket in product_dtos:
             for product in basket.products:
                 basket = Basket()
@@ -48,6 +47,7 @@ class BasketService:
                 basket_product_classify_dict.setdefault(product.shop_id, basket)
                 basket_product_classify_dict[product.shop_id].products.append(product)
 
+        # sort products by price
         for basket_product_classify_dict_key, basket in basket_product_classify_dict.items():
             basket.products = sort_products_by_price(basket.products)
             basket_compare.add_basket(basket)
@@ -60,6 +60,7 @@ class BasketService:
         unique_products_dict = {}
         total_price = 0.0
 
+        # find unique products and sum total price for each basket
         for basket in basket_compare.baskets.copy():
             for product in basket.products:
                 logging.info(f"product = {product}")
@@ -80,20 +81,9 @@ class BasketService:
             total_price = 0.0
             unique_products_dict = {}
 
-            #     products_count += 1
-            #     if products_count <= products_len:
-            #         if product.product_name not in product_names:
-            #             product_names.append(product.product_name)
-            #             products_total += float(product.price)
-            #             summed_products.append(product)
-            #     else:
-            #         basket.total_price = products_total
-            #         basket.products = summed_products
-            #
-            #         products_count = 0
-            #         products_total = 0.0
-            #         product_names = []
-            #         break
+            # sort baskets by total price
+            basket_compare.baskets = sort_baskets_by_total_price(basket_compare.baskets)
+
         return basket_compare
 
     def create_basket_compare(self, product_dtos: List[ProductDto]):

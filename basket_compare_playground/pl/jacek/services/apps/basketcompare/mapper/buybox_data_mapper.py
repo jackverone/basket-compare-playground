@@ -19,7 +19,7 @@ def map_products_from_buybox_data(buybox_data: BuyBoxData) -> List[Product]:
 
     for key, datum in buybox_data.data.items():
         product = map_product_from_datum(datum)
-        # FIXME: use setter instead of direct assignment!
+        # FIXME: use setter instead of direct assignment!?
         product.product_meta_data = product_meta_data
         product.product_url = key
         product.product_name = product_meta_data.name

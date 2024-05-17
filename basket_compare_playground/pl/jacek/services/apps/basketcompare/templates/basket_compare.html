@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Basket Compare</title>
+    <title>Porównanie cen książek - Basket Compare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<h1>Basket Compare</h1>
 
 <div class="container-fluid">
-    <div class="row">
-        {% for basket in basket_compare.baskets %}
-        <div class="col-3 text-right">
-            <h2>
-                <img class="m-3" src="{{ basket.shop_info.icon_url }}" width="32" height="32" alt="icon">
-                {{ basket.shop_info.name }}
-            </h2>
-            {% for product in basket.products %}
-            <ul>
-                <li>{{ product.product_name }} {{ product.price }} {{ product.currency }}</li>
-            </ul>
-            {% endfor %}
-            <p class="text-right">Total price: {{ basket.total_price | round(2) }}</p>
+    <div id="main-body">
+        <div id="navbar">
+            {% include "navigation_bar.html" %}
         </div>
-        {% endfor %}
+        <div id="main-content m-3">
+            <h1>Porównanie cen książek</h1>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for basket in basket_compare.baskets %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="m-3" src="{{ basket.shop_info.icon_url }}" width="32" height="32" alt="icon">
+                            {{ basket.shop_info.name }}
+                        </div>
+                        <div class="card-body">
+                            <!-- <h5 class="card-title">Special title treatment</h5> -->
+                            {% for product in basket.products %}
+                            <ul>
+                                <li>{{ product.product_name }} {{ product.price }} {{ product.currency }}</li>
+                            </ul>
+                            {% endfor %}
+                            <p class="card-text">
+                                Cena całkowita: {{ basket.total_price | round(2) }}
+                            </p>
+                            <a href="#" class="btn btn-primary">Idź do sklepu</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="footer">
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </body>
 </html>

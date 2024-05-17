@@ -14,38 +14,13 @@
         </div>
         <div id="main-content">
             <div id="top-banner">
-                <div class="px-4 py-5 my-5 text-center">
-                    <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='img/bootstrap-logo.svg') }}"
-                         alt="Basket Compare Logo" width="72" height="57">
-                    <h1 class="display-5 fw-bold text-body-emphasis">Porównaj ceny książek</h1>
-                    <div class="col-lg-6 mx-auto">
-                        <p class="lead mb-4">Porównaj ceny kilku książek w różnych księgarniach!</p>
-                        <form action="/products/search">
-                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                                <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Wyszukaj książkę
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                {% include "main_banner.html" %}
             </div>
         </div>
         <div id="footer">
 
         </div>
     </div>
-
-<!--    <div>-->
-<!--        <h1>Dashboard</h1>-->
-<!--        <div class="row">-->
-<!--            <div class="col">-->
-<!--                <a href="/products/search" class="btn btn-primary" autofocus>Search a Product</a>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <a href="/basket_compare" class="btn btn-primary">Basket Compare</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

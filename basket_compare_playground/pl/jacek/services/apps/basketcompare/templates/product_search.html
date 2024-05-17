@@ -8,45 +8,56 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div>
-        <h1>Search a Product</h1>
-        <form action="/products/search" method="post" class="form-inline">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" class="form-control" autofocus>
-            </div>
-            <div class="form-group">
-                <label for="info">Author:</label>
-                <input type="text" id="info" name="info" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-primary">
-            </div>
-        </form>
-    </div>
-    <div>
-        {% if products is not none %}
-        <form action="/products/add" method="post">
+    <div id="main-body">
+        <div id="navbar">
+            {% include "navigation_bar.html" %}
+        </div>
+        <div id="main-content">
             <div>
-                <input type="submit" value="Add to Basket Compare" class="btn btn-primary">
-            </div>
-            <h1>Search Result</h1>
-            <div>
-                <img src="{{ product_meta_data.image }}" style="width: 256px; height 256px; object-fit: contain;" alt="image">
+                <h1>Search a Product</h1>
+                <form action="/products/search" method="post" class="form-inline">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="info">Author:</label>
+                        <input type="text" id="info" name="info" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-primary">
+                    </div>
+                </form>
             </div>
             <div>
-                Name: {{ product_meta_data.name }}
-                <input type="hidden" name="name" value="{{ product_meta_data.name }}">
+                {% if products is not none %}
+                <form action="/products/add" method="post">
+                    <div>
+                        <input type="submit" value="Add to Basket Compare" class="btn btn-primary">
+                    </div>
+                    <h1>Search Result</h1>
+                    <div>
+                        <img src="{{ product_meta_data.image }}"
+                             style="width: 256px; height 256px; object-fit: contain;" alt="image">
+                    </div>
+                    <div>
+                        Name: {{ product_meta_data.name }}
+                        <input type="hidden" name="name" value="{{ product_meta_data.name }}">
+                    </div>
+                    <div>
+                        Author: {{ product_meta_data.info }}
+                        <input type="hidden" name="info" value="{{ product_meta_data.info }}">
+                    </div>
+                </form>
+                {% endif %}
             </div>
-            <div>
-                Author: {{ product_meta_data.info }}
-                <input type="hidden" name="info" value="{{ product_meta_data.info }}">
+            <div class="col">
+                <a href="/basket_compare" class="btn btn-primary" autofocus>Basket Compare</a>
             </div>
-        </form>
-        {% endif %}
-    </div>
-    <div class="col">
-        <a href="/basket_compare" class="btn btn-primary" autofocus>Basket Compare</a>
+        </div>
+        <div id="footer">
+
+        </div>
     </div>
 </div>
 

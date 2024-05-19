@@ -1,0 +1,34 @@
+<div id="fragment-navbar">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <img class="d-inline-block align-text-top"
+                 src="{{ url_for('static', filename='img/basket-compare_icon-logo.svg') }}"
+                 alt="Basket Compare Logo" width="32" height="32">
+            <a class="navbar-brand ms-2" href="/">Basket Compare</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products/search">Wyszukaj książkę</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/basket_compare" class="btn btn-outline-primary">
+                            Zobacz porównanie koszyków
+                        </a>
+                    </li>
+                </ul>
+                <form action="/products/search" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Wyszukaj" aria-label="Wyszukaj">
+                    <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>

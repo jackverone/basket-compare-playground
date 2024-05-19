@@ -63,7 +63,6 @@ class BasketService:
         # find unique products and sum total price for each basket
         for basket in basket_compare.baskets.copy():
             for product in basket.products:
-                logging.info(f"product = {product}")
                 if (product.product_name in unique_products_dict and
                         unique_products_dict[product.product_name].price <= product.price):
                     continue

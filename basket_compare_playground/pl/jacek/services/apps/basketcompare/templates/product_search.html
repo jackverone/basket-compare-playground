@@ -13,9 +13,9 @@
         <div id="navbar">
             {% include "navigation_bar.html" %}
         </div>
-        <div id="main-content m-3">
-            <div class="row justify-content-center">
-                <div class="col-4">
+        <div id="main-content p-3">
+            <div class="row justify-content-center p-3">
+                <div class="col-sm-4">
                     <div>
                         <h1>Wyszukaj książkę</h1>
                         <form action="/products/search" method="post">
@@ -31,36 +31,37 @@
                                 <label for="info" class="form-label">Autor</label>
                                 <input type="text" class="form-control" name="info" id="info">
                             </div>
-                            <button type="submit" class="btn btn-primary">Szukaj</button>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Szukaj</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-4">
                     {% if products is not none %}
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center p-3">
                         <form action="/products/add" method="post">
                             <h1>Wynik wyszukiwania</h1>
-                            <div>
-                                <img src="{{ product_meta_data.image }}"
-                                     style="width: 256px; height 256px; object-fit: contain;" alt="image">
+                            <div class="d-flex justify-content-center align-items-center mt-3">
+                                <button type="submit" class="btn btn-primary">Dodaj do porównania</button>
                             </div>
-                            <div>
+                            <div class="d-flex justify-content-center align-items-center mt-3">
+                                <img src="{{ product_meta_data.image }}" class="img-thumbnail" alt="{{ product_meta_data.name }}">
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center mt-3">
                                 Tytuł: {{ product_meta_data.name }}
                                 <input type="hidden" name="name" value="{{ product_meta_data.name }}">
                             </div>
-                            <div>
+                            <div class="d-flex justify-content-center align-items-center">
                                 Autor: {{ product_meta_data.info }}
                                 <input type="hidden" name="info" value="{{ product_meta_data.info }}">
-                            </div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <input type="submit" value="Dodaj do porównania" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="row"></div>
+            <!--            <div class="row"></div>-->
         </div>
         <div id="footer">
             {% include "footer.html" %}

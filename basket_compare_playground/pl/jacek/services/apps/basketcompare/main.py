@@ -48,6 +48,18 @@ basket_controller = BasketController(basket_service)
 basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    logging.error(f"Page not found: {e}")
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    logging.error(f"Internal server error: {e}")
+    return render_template('500.html'), 500
+
+
 @app.route("/")
 def home():
     basket_repository.clear_all_products()

@@ -19,17 +19,28 @@
                     <div>
                         <h1>Wyszukaj książkę</h1>
                         <form action="/products/search" method="post">
+                            {{ form.csrf_token }}
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tytuł</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                       aria-describedby="nameHelp" autofocus>
+                                {{ form.name.label(class_="form-label") }}
+                                {{ form.name(class_="form-control", autofocus=true) }}
                                 <div id="emailHelp" class="form-text">
                                     Podaj autora, jeżeli książka nie zostanie znaleziona.
                                 </div>
                             </div>
+                            <div>
+                                <div>
+                                    {% if form.name.errors %}
+                                    <ul class="errors">
+                                        {% for error in form.name.errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
                             <div class="mb-3">
-                                <label for="info" class="form-label">Autor</label>
-                                <input type="text" class="form-control" name="info" id="info">
+                                {{ form.info.label(class_="form-label") }}
+                                {{ form.info(class_="form-control", autofocus=true) }}
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">Szukaj</button>
@@ -46,7 +57,8 @@
                                 <button type="submit" class="btn btn-primary">Dodaj do porównania</button>
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-3">
-                                <img src="{{ product_meta_data.image }}" class="img-thumbnail" alt="{{ product_meta_data.name }}">
+                                <img src="{{ product_meta_data.image }}" class="img-thumbnail img-thumbnail"
+                                     alt="{{ product_meta_data.name }}">
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-3">
                                 Tytuł: {{ product_meta_data.name }}

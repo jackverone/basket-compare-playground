@@ -5,7 +5,10 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 
 def extract_product_meta_data(buybox_data: BuyBoxData) -> ProductMetaData:
-    # logging.info(f"extract_product_meta_data(buybox_data)")
+    logging.info(f"extract_product_meta_data(buybox_data)")
+    if not hasattr(buybox_data, "data"):
+        return None
+
     product_meta_data = ProductMetaData(
         buybox_data.status,
         buybox_data.space_id,

@@ -38,7 +38,15 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    {% if products is not none %}
+                    {% if product_meta_data is none %}
+                    <div class="justify-content-center align-items-center p-3">
+                        <h1>Wynik wyszukiwania</h1>
+                        <div class="d-flex justify-content-center align-items-center text-bg-warning rounded-3 p-2">
+                            Brak wyników wyszukiwania. Podaj tytuł i/lub autora książki.
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if product_meta_data is not none %}
                     <div class="d-flex justify-content-center align-items-center p-3">
                         <form action="/products/add" method="post">
                             <h1>Wynik wyszukiwania</h1>

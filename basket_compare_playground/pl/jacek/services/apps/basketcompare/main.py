@@ -48,6 +48,18 @@ basket_controller = BasketController(basket_service)
 basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    logging.error(f"Page not found: {e}")
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    logging.error(f"Internal server error: {e}")
+    return render_template("500.html"), 500
+
+
 @app.route("/")
 def home():
     basket_repository.clear_all_products()
@@ -94,7 +106,7 @@ def get_basket_compare():
 def search_products_view():
     app.logger.info("search_products_view()")
     form = SearchProductForm()
-    return render_template("product_search.html", products=None, form=form)
+    return render_template("product_search.html", product_meta_data=None, form=form)
 
 
 @app.route("/products/search", methods=["POST"])
@@ -125,7 +137,7 @@ def add_product_to_basket():
     added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: added_product")
 
-    return render_template("product_search.html", products=None, form=SearchProductForm())
+    return render_template("product_search.html", product_meta_data=None, form=SearchProductForm())
 
 
 if __name__ == "__main__":

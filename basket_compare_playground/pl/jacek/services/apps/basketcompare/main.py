@@ -22,6 +22,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
     BasketCompareService
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
+    SearchProductForm
 
 app = Flask(__name__)
 app.secret_key = "your another secret key"
@@ -84,38 +86,34 @@ def get_basket_compare():
 
     products = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
-    # app.logger.info(f"get_basket_compare() = {basket_compare}")
-    # for k, v in basket_compare.items():
-    #     logging.info(f"create_basket_compare: k={k}, v={v} \n")
-    #     for product in v:
-    #         logging.info(f"create_basket_compare: product={product} \n")
 
     return render_template("basket_compare.html", basket_compare=basket_compare)
-
-
-# @app.route("/basket_compares_buybox")
-# def get_basket_compares_buybox():
-#     # basket_compares = basket_compare_controller.get_all_basket_compares()
-#     basket_compares = basket_compare_controller.get_basket_compare(
-#         "Alchemik", "Paulo+Coelho")
-#     return render_template("basket_compare.html", basket_compares=basket_compares)
 
 
 @app.route("/products/search")
 def search_products_view():
     app.logger.info("search_products_view()")
-    return render_template("product_search.html", products=None)
+    form = SearchProductForm()
+    return render_template("product_search.html", products=None, form=form)
 
 
 @app.route("/products/search", methods=["POST"])
 def search_products_post():
-    name = request.form["name"]
-    info = request.form["info"]
-    logging.info(f"search_products_post({name}, {info})")
+    logging.info("search_products_post()")
+    form = SearchProductForm(request.form)
+    logging.info(f"Form: {form}")
 
-    product_meta_data = product_controller.search_product_meta_data(name, info)
+    if form.validate():
+        logging.info("Form is valid")
 
-    return render_template("product_search.html", product_meta_data=product_meta_data)
+        name = form.name.data
+        info = form.info.data
+        logging.info(f"search_products_post({name}, {info})")
+
+        product_meta_data = product_controller.search_product_meta_data(name, info)
+
+        return render_template("product_search.html", product_meta_data=product_meta_data, form=SearchProductForm())
+    return render_template("product_search.html", form=form)
 
 
 @app.route("/products/add", methods=["POST"])
@@ -127,7 +125,7 @@ def add_product_to_basket():
     added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: added_product")
 
-    return render_template("product_search.html", products=None)
+    return render_template("product_search.html", products=None, form=SearchProductForm())
 
 
 if __name__ == "__main__":

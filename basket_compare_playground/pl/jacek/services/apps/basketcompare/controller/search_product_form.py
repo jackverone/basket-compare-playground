@@ -1,10 +1,10 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import Form, StringField, validators
 from wtforms.fields.simple import SubmitField
 
 
 class SearchProductForm(Form):
     name = StringField('Tytuł', validators=[validators.DataRequired("Wpisz tytuł książki.")])
-    # info = StringField('Autor', validators=[validators.DataRequired()])
+    info = StringField('Autor')
     submit = SubmitField('Szukaj')
 
     def __str__(self):

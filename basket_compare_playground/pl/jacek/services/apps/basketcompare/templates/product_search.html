@@ -27,17 +27,6 @@
                                     Podaj autora, jeżeli książka nie zostanie znaleziona.
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    {% if form.name.errors %}
-                                    <ul class="errors">
-                                        {% for error in form.name.errors %}
-                                        <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
                             <div class="mb-3">
                                 {{ form.info.label(class_="form-label") }}
                                 {{ form.info(class_="form-control", autofocus=true) }}
@@ -73,7 +62,6 @@
                     {% endif %}
                 </div>
             </div>
-            <!--            <div class="row"></div>-->
         </div>
         <div id="footer">
             {% include "footer.html" %}

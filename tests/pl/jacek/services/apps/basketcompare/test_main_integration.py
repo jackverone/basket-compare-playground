@@ -17,12 +17,11 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_search_product_post(self):
-
         self.app.get("/", follow_redirects=True)
 
-        # self.app.post("/products/search",
-        #                          data=dict(name="Karma", info="Sadhguru"),
-        #                          follow_redirects=True)
+        self.app.post("/products/search",
+                      data=dict(name="Karma", info="Sadhguru"),
+                      follow_redirects=True)
 
         self.app.post("/products/add",
                       data=dict(name="Alchemik", info="Paulo Coelho"),
@@ -34,7 +33,7 @@ class FlaskTestCase(unittest.TestCase):
 
         response = self.app.get("/basket_compare", follow_redirects=True)
 
-        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         # self.assertNotEqual(self.app.session[SELECTED_PRODUCTS_SESSION_KEY], {}, "Session should not be empty")
         # self.assertEqual(self.app.session[SELECTED_PRODUCTS_SESSION_KEY]["test"], "test")
 

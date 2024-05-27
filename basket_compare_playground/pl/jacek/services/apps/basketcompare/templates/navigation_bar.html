@@ -5,12 +5,12 @@
                  src="{{ url_for('static', filename='img/basket-compare_icon-logo.svg') }}"
                  alt="Basket Compare Logo" width="32" height="32">
             <a class="navbar-brand ms-2" href="/">Basket Compare</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler order-2 ml-1" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse order-last" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
@@ -18,16 +18,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/products/search">Wyszukaj książkę</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/basket_compare" class="btn btn-outline-primary">
-                            Zobacz porównanie koszyków
-                        </a>
-                    </li>
                 </ul>
-                <form action="/products/search" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Wyszukaj" aria-label="Wyszukaj">
+                <form action="/products/search" class="d-flex order-last" role="search" method="post">
+                    <input class="form-control me-2" type="search" name="name" placeholder="Tytuł" aria-label="Tytuł">
+                    <input class="form-control me-2" type="search" name="info" placeholder="Autor" aria-label="Autor">
                     <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
                 </form>
+            </div>
+            <div class="p-1 navbar-nav order-1 order-xl-last ml-auto">
+                <a href="/basket_compare" class="btn btn-outline-primary">
+                    Porównaj
+                </a>
             </div>
         </div>
     </nav>

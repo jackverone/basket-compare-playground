@@ -24,6 +24,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
     SearchProductForm
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
 
 app = Flask(__name__)
 app.secret_key = "your another secret key"
@@ -62,19 +63,14 @@ def internal_server_error(e):
 
 @app.route("/")
 def home():
+    logging.info(f"home()")
     basket_repository.clear_all_products()
     session.clear()
 
-    # if SELECTED_PRODUCTS_SESSION_KEY not in session:
-    #     logging.info(f"Creating session for {SELECTED_PRODUCTS_SESSION_KEY}")
-    #     session[SELECTED_PRODUCTS_SESSION_KEY] = {}
-    #
-    # if BASKET_COMPARE_SESSION_KEY not in session:
-    #     logging.info(f"Creating session for {BASKET_COMPARE_SESSION_KEY}")
-    #     session[BASKET_COMPARE_SESSION_KEY] = {}
-    #
-    # logging.info(f"Session: {session}")
+    if PRODUCT_SEARCH_SESSION_KEY not in session:
+        session[PRODUCT_SEARCH_SESSION_KEY] = False
 
+    logging.info(f"Session: {session}")
     return render_template("dashboard.html")
 
 
@@ -116,8 +112,6 @@ def search_products_post():
     logging.info(f"Form: {form}")
 
     if form.validate():
-        logging.info("Form is valid")
-
         name = form.name.data
         info = form.info.data
         logging.info(f"search_products_post({name}, {info})")
@@ -136,6 +130,9 @@ def add_product_to_basket():
 
     added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: added_product")
+
+    session[PRODUCT_SEARCH_SESSION_KEY] = True
+    logging.info(f"Session: {session}")
 
     return render_template("product_search.html", product_meta_data=None, form=SearchProductForm())
 

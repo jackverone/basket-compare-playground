@@ -25,11 +25,13 @@
                     <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
                 </form>
             </div>
+            {% if session['product_search'] %}
             <div class="p-1 navbar-nav order-1 order-xl-last ml-auto">
                 <a href="/basket_compare" class="btn btn-outline-primary">
                     Porównaj
                 </a>
             </div>
+            {% endif %}
         </div>
     </nav>
 </div>

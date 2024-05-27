@@ -27,13 +27,17 @@
                             <!-- <h5 class="card-title">Special title treatment</h5> -->
                             {% for product in basket.products %}
                             <ul>
-                                <li>{{ product.product_name }} {{ product.price }} {{ product.currency }}</li>
+                                <li>
+                                    <a href="{{ product.product_url }}" target="_blank">
+                                        {{ product.product_name }}, {{ product.product_info }}, {{ product.price }} {{ product.currency }}
+                                    </a>
+                                </li>
                             </ul>
                             {% endfor %}
                             <p class="card-text">
                                 Cena całkowita: {{ basket.total_price | round(2) }}
                             </p>
-                            <a href="#" class="btn btn-primary">Idź do sklepu</a>
+                            <!-- <a href="#" class="btn btn-primary">Idź do sklepu</a> -->
                         </div>
                     </div>
                 </div>

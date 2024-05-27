@@ -20,8 +20,9 @@
                     </li>
                 </ul>
                 <form action="/products/search" class="d-flex order-last" role="search" method="post">
-                    <input class="form-control me-2" type="search" name="name" placeholder="Tytuł" aria-label="Tytuł">
-                    <input class="form-control me-2" type="search" name="info" placeholder="Autor" aria-label="Autor">
+                    {{ form.csrf_token }}
+                    {{ form.name(class_="form-control me-2", autofocus=true, placeholder="Tytuł") }}
+                    {{ form.info(class_="form-control me-2", autofocus=true, placeholder="Autor") }}
                     <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
                 </form>
             </div>

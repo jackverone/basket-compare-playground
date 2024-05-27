@@ -71,7 +71,7 @@ def home():
         session[PRODUCT_SEARCH_SESSION_KEY] = False
 
     logging.info(f"Session: {session}")
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", form=SearchProductForm())
 
 
 @app.route("/products")
@@ -95,7 +95,7 @@ def get_basket_compare():
     products = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
 
-    return render_template("basket_compare.html", basket_compare=basket_compare)
+    return render_template("basket_compare.html", basket_compare=basket_compare, form=SearchProductForm())
 
 
 @app.route("/products/search")

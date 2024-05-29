@@ -5,7 +5,7 @@ class Product:
 
     def __init__(self, id, name, icon, logo, type, type_id, type_name, shop_id, currency, price: float,
                  price_prefix, product_meta_data: ProductMetaData = None,
-                 product_name: str = "", product_url: str = ""):
+                 product_name: str = "", product_info: str = "", product_url: str = ""):
         self.id = id
         self.name = name
         self.icon = icon
@@ -19,6 +19,7 @@ class Product:
         self.price_prefix = price_prefix
         self.product_meta_data = product_meta_data
         self.product_name = product_name
+        self.product_info = product_info
         self.product_url = product_url
 
     # @property
@@ -51,6 +52,7 @@ class Product:
             "price": self.price,
             "price_prefix": self.price_prefix,
             "product_name": self.product_name,
+            "product_info": self.product_info,
             "product_url": self.product_url
         }
 
@@ -61,7 +63,7 @@ class Product:
         return (f"Product(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
                 f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, "
                 f"currency={self.currency}, price={self.price}, price_prefix={self.price_prefix}, "
-                f"product_name={self.product_name}, product_url={self.product_url})")
+                f"product_name={self.product_name}, product_info={self.product_info}, product_url={self.product_url})")
 
     def __repr__(self):
         return self.__str__()

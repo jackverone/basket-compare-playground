@@ -23,6 +23,7 @@ def map_products_from_buybox_data(buybox_data: BuyBoxData) -> List[Product]:
         product.product_meta_data = product_meta_data
         product.product_url = key
         product.product_name = product_meta_data.name
+        product.product_info = product_meta_data.info
         products.append(product)
 
     # logging.info(f"from_buybox_data(...) = products")

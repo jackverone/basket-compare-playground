@@ -10,6 +10,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.shop_info_mapper import \
     map_shop_info_from_product
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 
 
 class BasketService:
@@ -28,6 +29,14 @@ class BasketService:
         product_full_data = self.product_service.search_product_full_data(name, info)
         added_product = self.repository.add_product(product_full_data)
         logging.info(f"search_and_add_product(...) = added_product")
+        return added_product
+
+    def search_by_dto_and_add_product(self, product_search_dto: ProductSearchDto):
+        logging.info(f"search_by_dto_and_add_product({product_search_dto})")
+        product_full_data = self.product_service.search_product_full_data(
+            product_search_dto.name, product_search_dto.info)
+        added_product = self.repository.add_product(product_full_data)
+        logging.info(f"search_by_dto_and_add_product(...) = added_product")
         return added_product
 
     def add_product(self, product: ProductDto):

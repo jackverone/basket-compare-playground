@@ -25,6 +25,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
     SearchProductForm
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 
 app = Flask(__name__)
 app.secret_key = "your another secret key"
@@ -117,8 +118,10 @@ def search_products_post():
         logging.info(f"search_products_post({name}, {info})")
 
         product_meta_data = product_controller.search_product_meta_data(name, info)
+        product_dto = product_controller.search_product(name, info)
 
-        return render_template("product_search.html", product_meta_data=product_meta_data, form=SearchProductForm())
+        return render_template("product_search.html", product_dto=product_dto,
+                               product_meta_data=product_meta_data, form=SearchProductForm())
     return render_template("product_search.html", form=form)
 
 
@@ -128,7 +131,8 @@ def add_product_to_basket():
     info = request.form["info"]
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
-    added_product: Product = basket_controller.search_and_add_product(name, info)
+    product_search_dto = ProductSearchDto(name, info)
+    added_product: Product = basket_controller.search_by_dto_and_add_product(product_search_dto)
     logging.info(f"Added product: added_product")
 
     session[PRODUCT_SEARCH_SESSION_KEY] = True

@@ -1,12 +1,16 @@
 import logging
+from typing import Dict, List, Set
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.service.BuyBoxService import \
     BuyBoxService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.buybox_data_mapper import map_products_from_buybox_data
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.buybox_data_mapper import \
+    map_products_from_buybox_data
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.product_meta_data_mapper import \
     extract_product_meta_data
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_by_type_dto import ProductByTypeDto
 
 
 class ProductService:
@@ -28,6 +32,29 @@ class ProductService:
         product_dto = ProductDto(products)
         logging.info(f"search_product_full_data() = product_dto")
         return product_dto
+
+    def search_product_grouped_by_type_full_data(self, product_search_dto: ProductSearchDto) -> ProductByTypeDto:
+        logging.info(f"search_product_grouped_by_type_full_data({product_search_dto})")
+        product_dto: ProductDto = self.search_product_full_data(product_search_dto.name, product_search_dto.info)
+
+        # product_dto.products = sorted(product_dto.products, key=lambda x: (x.type, x.name))
+        # products_grouped_by_type = [ProductDto([product for product in product_dto.products if product.name == name])
+        #                             for name in set([product.name for product in product_dto.products])]
+
+        initial_products_grouped_by_type = {}  # type: Dict[str, List[ProductDto]]
+        unique_product_names = set([product.name for product in product_dto.products])
+        for product in product_dto.products:
+            single_product_dto = ProductDto([product], product.product_meta_data)
+            if product.name in unique_product_names:
+                initial_products_grouped_by_type.setdefault(product.name, [single_product_dto])
+                initial_products_grouped_by_type[product.name].append(single_product_dto)
+
+        products_grouped_by_type = ProductByTypeDto([product_dto
+                                                     for product_dto in initial_products_grouped_by_type.values()])
+
+        logging.info(f"search_product_grouped_by_type_full_data() = {products_grouped_by_type}")
+        return products_grouped_by_type
+        # return ProductByTypeDto(products_grouped_by_type)
 
     def create_product(self, name, price):
         logging.info(f"Creating product {name} with price {price}")

@@ -33,8 +33,7 @@ class BasketService:
 
     def search_by_dto_and_add_product(self, product_search_dto: ProductSearchDto):
         logging.info(f"search_by_dto_and_add_product({product_search_dto})")
-        product_full_data = self.product_service.search_product_full_data(
-            product_search_dto.name, product_search_dto.info)
+        product_full_data = self.product_service.search_product_grouped_by_type_full_data(product_search_dto)
         added_product = self.repository.add_product(product_full_data)
         logging.info(f"search_by_dto_and_add_product(...) = added_product")
         return added_product

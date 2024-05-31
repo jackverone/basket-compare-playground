@@ -40,24 +40,25 @@
                 <div class="col-sm-4">
                     {% if products is not none %}
                     <div class="justify-content-center align-items-center p-3">
-                        {% for product in product_dto.products %}
+                        {% for product_dto in product_by_type_dto.product_dtos %}
                         <div>
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="{{ product_meta_data.image }}" class="img-thumbnail img-thumbnail"
-                                             alt="{{ product_meta_data.name }}">
+                                        <img src="{{ product_dto.product_meta_data.image }}" class="img-thumbnail img-thumbnail"
+                                             alt="{{ product_dto.product_meta_data.name }}">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">Tytuł: {{ product.product_name }}</h5>
-                                            <p class="card-text">Autor: {{ product.product_info }}</p>
+                                            <h5 class="card-title">Tytuł: {{ product_dto.products[0].name }}</h5>
+                                            <p class="card-text">Autor: {{ product_dto.products[0].info }}</p>
                                             <p class="card-text">
                                                 <small class="">
-                                                    {{ product.name }}
+                                                    {{ product_dto.name }}
                                                 </small>
                                             </p>
                                             <ul class="card-text justify-content-center align-items-center">
+                                                {% for product in product_dto.products %}
                                                 <li>
                                                     <span>
                                                         {{ product.type_name }} - {{ product.price }} {{ product.currency }}
@@ -67,6 +68,7 @@
                                                            class="btn btn-primary btn-sm">Do porównania</a>
                                                     </span>
                                                 </li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
                                     </div>

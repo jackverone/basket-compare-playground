@@ -118,9 +118,9 @@ def search_products_post():
         logging.info(f"search_products_post({name}, {info})")
 
         product_meta_data = product_controller.search_product_meta_data(name, info)
-        product_dto = product_controller.search_product(name, info)
+        product_by_type_dto = product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
 
-        return render_template("product_search.html", product_dto=product_dto,
+        return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
     return render_template("product_search.html", form=form)
 
@@ -131,8 +131,7 @@ def add_product_to_basket():
     info = request.form["info"]
     logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
 
-    product_search_dto = ProductSearchDto(name, info)
-    added_product: Product = basket_controller.search_by_dto_and_add_product(product_search_dto)
+    added_product: Product = basket_controller.search_and_add_product(name, info)
     logging.info(f"Added product: added_product")
 
     session[PRODUCT_SEARCH_SESSION_KEY] = True

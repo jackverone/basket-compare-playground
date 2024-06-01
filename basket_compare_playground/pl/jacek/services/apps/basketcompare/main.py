@@ -121,13 +121,6 @@ def search_products_post():
         product_meta_data = product_controller.search_product_meta_data(name, info)
         product_by_type_dto = product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
 
-        # for product_dtos in product_by_type_dto.product_dtos:
-        #     logging.info(f"product_dtos: {product_dtos}")
-        #     for product_dto in product_dtos:
-        #         logging.info(f"ProductDto.products: {product_dto.products} \n")
-        # for product in product_dto.products:
-        #     logging.info(f"Product: {product}")
-
         return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
     return render_template("product_search.html", form=form)
@@ -135,17 +128,20 @@ def search_products_post():
 
 @app.route("/products/add", methods=["POST"])
 def add_product_to_basket():
+    logging.info("add_product_to_basket()")
     name = request.form["name"]
     info = request.form["info"]
-    logging.info(f"Adding product with name: {name} and info: {info} to basket compare")
+    id = request.form["id"]
+    type = request.form["type"]
+    type_id = request.form["type_id"]
 
-    added_product: Product = basket_controller.search_and_add_product(name, info)
-    logging.info(f"Added product: added_product")
+    basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
 
     session[PRODUCT_SEARCH_SESSION_KEY] = True
     logging.info(f"Session: {session}")
 
-    return render_template("product_search.html", product_meta_data=None, form=SearchProductForm())
+    return render_template("product_search.html", product_by_type_dto=None, product_meta_data=None,
+                           form=SearchProductForm())
 
 
 if __name__ == "__main__":

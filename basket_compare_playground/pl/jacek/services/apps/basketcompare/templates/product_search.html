@@ -69,8 +69,17 @@
                                                 {{ product.type_name }} - {{ product.price }} {{ product.currency }}
                                             </div>
                                             <div class="mb-2">
-                                                <a href="{{ product.product_url }}" target="_blank"
-                                                   class="btn btn-primary btn-sm">Do porównania</a>
+                                                <form action="/products/add" method="post">
+                                                    <input type="hidden" name="id" value="{{ product.id }}">
+                                                    <input type="hidden" name="type" value="{{ product.type }}">
+                                                    <input type="hidden" name="type_id" value="{{ product.type_id }}">
+                                                    <input type="hidden" name="name"
+                                                           value="{{ product_dto.product_meta_data.name }}">
+                                                    <input type="hidden" name="info"
+                                                           value="{{ product_dto.product_meta_data.info }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        Dodaj do porównania</button>
+                                                </form>
                                             </div>
                                         </li>
                                         {% endfor %}

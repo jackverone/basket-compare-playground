@@ -19,9 +19,9 @@ class BasketController:
         product = self.service.search_and_add_product(name, info)
         return product
 
-    def search_by_dto_and_add_product(self, product_search_dto: ProductSearchDto):
-        logging.info(f"search_by_dto_and_add_product({product_search_dto})")
-        product = self.service.search_by_dto_and_add_product(product_search_dto)
+    def search_by_type_and_add_product(self, product_search_dto: ProductSearchDto):
+        logging.info(f"search_by_type_and_add_product({product_search_dto})")
+        product = self.service.search_by_type_and_add_product(product_search_dto)
         return product
 
     def create_basket_compare(self, products: List[BuyBoxData]):

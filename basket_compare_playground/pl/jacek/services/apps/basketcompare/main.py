@@ -120,6 +120,13 @@ def search_products_post():
         product_meta_data = product_controller.search_product_meta_data(name, info)
         product_by_type_dto = product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
 
+        # for product_dtos in product_by_type_dto.product_dtos:
+        #     logging.info(f"product_dtos: {product_dtos}")
+        #     for product_dto in product_dtos:
+        #         logging.info(f"ProductDto.products: {product_dto.products} \n")
+        # for product in product_dto.products:
+        #     logging.info(f"Product: {product}")
+
         return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
     return render_template("product_search.html", form=form)

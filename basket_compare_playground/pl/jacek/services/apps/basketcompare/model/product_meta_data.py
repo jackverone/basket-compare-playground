@@ -1,7 +1,7 @@
 class ProductMetaData:
     def __init__(self, status, space_id, tracking_url, sort_type, use_css, use_tabs, default_tab, lead_color,
                  show_product, shop_style, version, language, show_prices, send_ga_client_id, button_label, row_count,
-                 statistics, name, info, image):
+                 statistics, name, info, image, shop_name: str = ""):
         self.status = status
         self.space_id = space_id
         self.tracking_url = tracking_url
@@ -22,6 +22,7 @@ class ProductMetaData:
         self.name = name
         self.info = info
         self.image = image
+        self.shop_name = shop_name
 
     def __str__(self):
         return (f"ProductMetaData(status={self.status}, space_id={self.space_id}, tracking_url={self.tracking_url}, "
@@ -29,4 +30,8 @@ class ProductMetaData:
                 f"lead_color={self.lead_color}, show_product={self.show_product}, shop_style={self.shop_style}, "
                 f"version={self.version}, language={self.language}, show_prices={self.show_prices}, "
                 f"send_ga_client_id={self.send_ga_client_id}, button_label={self.button_label}, row_count={self.row_count}, "
-                f"statistics={str(self.statistics)}, name={self.name}, info={self.info}, image={self.image})")
+                f"statistics={str(self.statistics)}, name={self.name}, info={self.info}, image={self.image}, "
+                f"shop_name={self.shop_name})")
+
+    def __repr__(self):
+        return self.__str__()

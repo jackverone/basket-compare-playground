@@ -15,9 +15,7 @@
         </div>
         <div id="main-content p-3">
             <div class="row justify-content-center p-3">
-                <div class="col-sm">
-
-                </div>
+                <div class="col-sm"></div>
                 <div class="col-sm">
                     <div>
                         <h1>Wyszukaj książkę</h1>
@@ -38,9 +36,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-sm">
-
-                </div>
+                <div class="col-sm"></div>
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-3">
                 {% if product_by_type_dto is not none %}
@@ -93,7 +89,8 @@
                 {% endif %}
 
                 {% if product_by_type_dto is none %}
-                <div class="col">
+                <div class="col-sm"></div>
+                <div class="col-sm">
                     <div class="justify-content-center align-items-center p-3">
                         <h1>Wynik wyszukiwania</h1>
                         <div class="d-flex justify-content-center align-items-center text-bg-warning rounded-3 p-2">
@@ -101,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm"></div>
                 {% endif %}
 
                 {% if product_meta_data is not none %}

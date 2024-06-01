@@ -103,7 +103,8 @@ def get_basket_compare():
 def search_products_view():
     app.logger.info("search_products_view()")
     form = SearchProductForm()
-    return render_template("product_search.html", product_meta_data=None, form=form)
+    return render_template("product_search.html", product_by_type_dto=None, product_meta_data=None,
+                           form=form)
 
 
 @app.route("/products/search", methods=["POST"])

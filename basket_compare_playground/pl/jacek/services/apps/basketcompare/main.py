@@ -5,23 +5,16 @@ from flask import Flask, render_template, request, session
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_compare_controller import \
-    BasketCompareController
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
     ProductRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
-    BasketCompareRepository
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.service.BuyBoxService import \
     BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_compare_service import \
-    BasketCompareService
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
     SearchProductForm
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
@@ -39,15 +32,15 @@ logging.basicConfig(
 buybox_service = BuyBoxService()
 product_repository = ProductRepository()
 basket_repository = BasketRepository()
-basket_compare_repository = BasketCompareRepository()
+# basket_compare_repository = BasketCompareRepository()
 
 product_service = ProductService(product_repository, buybox_service)
 basket_service = BasketService(product_service, basket_repository)
-basket_compare_service = BasketCompareService(basket_compare_repository)
+# basket_compare_service = BasketCompareService(basket_compare_repository)
 
 product_controller = ProductController(product_service, product_repository)
 basket_controller = BasketController(basket_service)
-basket_compare_controller = BasketCompareController(basket_compare_service)
+# basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
 @app.errorhandler(404)
@@ -96,7 +89,8 @@ def get_basket_compare():
     products = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
 
-    return render_template("basket_compare.html", basket_compare=basket_compare, form=SearchProductForm())
+    return render_template("basket_compare.html", basket_compare=basket_compare,
+                           form=SearchProductForm())
 
 
 @app.route("/products/search")
@@ -123,6 +117,7 @@ def search_products_post():
 
         return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
+
     return render_template("product_search.html", form=form)
 
 

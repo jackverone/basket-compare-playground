@@ -25,6 +25,5 @@ class BasketController:
         return product
 
     def create_basket_compare(self, products: List[BuyBoxData]):
-        # logging.info(f"create_basket_compare({products})")
         logging.info(f"create_basket_compare(products)")
-        return self.service.create_basket_compare_(products)
+        return self.service.create_basket_compare(products)

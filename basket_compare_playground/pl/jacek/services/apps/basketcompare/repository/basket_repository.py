@@ -11,7 +11,6 @@ class BasketRepository:
         self.products = []  # type: List[Product]
         self.product_dtos = []  # type: List[ProductDto]
 
-
     def get_all_products(self):
         logging.info(f"get_all_products() = product_dtos")
         return self.product_dtos

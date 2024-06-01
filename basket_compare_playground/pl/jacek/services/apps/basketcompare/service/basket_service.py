@@ -10,6 +10,9 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.basket import Basket
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.mapper.shop_info_mapper import \
     map_shop_info_from_product
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 
 class BasketService:
@@ -26,13 +29,32 @@ class BasketService:
     def search_and_add_product(self, name, info):
         logging.info(f"search_and_add_product({name}, {info})")
         product_full_data = self.product_service.search_product_full_data(name, info)
-        added_product = self.repository.add_product(product_full_data)
+        added_product = self.repository.add_product_dto(product_full_data)
         logging.info(f"search_and_add_product(...) = added_product")
         return added_product
 
+    def search_by_type_and_add_product(self, product_search_dto: ProductSearchDto) -> Product | None:
+        logging.info(f"search_by_type_and_add_product({product_search_dto})")
+
+        found_product_full_data = self.product_service.search_product_full_data(
+            product_search_dto.name, product_search_dto.info)
+
+        for product in found_product_full_data.products:
+            if (product.product_name == product_search_dto.name
+                    and product.product_info == product_search_dto.info
+                    and int(product.id) == int(product_search_dto.id)
+                    and product.type == product_search_dto.type
+                    and int(product.type_id) == int(product_search_dto.type_id)):
+                added_product = self.repository.add_product(product)
+                logging.info(f"search_by_type_and_add_product(...) = {added_product}")
+                return added_product
+
+        logging.info(f"search_by_type_and_add_product(...) = {None}")
+        return None
+
     def add_product(self, product: ProductDto):
         logging.info(f"add_product(product)")
-        return self.repository.add_product(product)
+        return self.repository.add_product_dto(product)
 
     def create_basket_compare_(self, product_dtos: List[ProductDto]) -> BasketCompare:
         basket_compare: BasketCompare = BasketCompare()

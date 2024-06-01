@@ -2,6 +2,7 @@ import logging
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 
 
 def extract_product_meta_data(buybox_data: BuyBoxData) -> ProductMetaData:
@@ -33,3 +34,4 @@ def extract_product_meta_data(buybox_data: BuyBoxData) -> ProductMetaData:
     )
     # logging.info(f"extract_product_meta_data(...) = product_meta_data")
     return product_meta_data
+

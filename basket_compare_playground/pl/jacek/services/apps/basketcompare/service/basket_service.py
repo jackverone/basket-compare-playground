@@ -32,7 +32,7 @@ class BasketService:
         logging.info(f"search_and_add_product(...) = added_product")
         return added_product
 
-    def search_by_type_and_add_product(self, product_search_dto: ProductSearchDto) -> Product | None:
+    def search_by_type_and_add_product(self, product_search_dto: ProductSearchDto) -> ProductDto | None:
         logging.info(f"search_by_type_and_add_product({product_search_dto})")
 
         found_product_full_data = self.product_service.search_product_full_data(
@@ -44,7 +44,8 @@ class BasketService:
                     and int(product.id) == int(product_search_dto.id)
                     and product.type == product_search_dto.type
                     and int(product.type_id) == int(product_search_dto.type_id)):
-                added_product = self.repository.add_product(product)
+                added_product = self.repository.add_product_dto(ProductDto([product]))
+
                 logging.info(f"search_by_type_and_add_product(...) = {added_product}")
                 return added_product
 

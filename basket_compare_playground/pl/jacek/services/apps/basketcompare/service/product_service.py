@@ -40,16 +40,16 @@ class ProductService:
 
         initial_products_grouped_by_type: List[ProductDto] = []
         unique_products_by_shop_and_product_name = (
-            set([(product.product_name, product.shop_id) for product in product_dto.products]))
+            set([(product.product_name, product.name, product.shop_id) for product in product_dto.products]))
 
         for unique_product in unique_products_by_shop_and_product_name:
             unique_product_dto: ProductDto = ProductDto([])
             for product in product_dto.products:
-                if (product.product_name, product.shop_id) == unique_product:
+                if (product.product_name, product.name, product.shop_id) == unique_product:
                     unique_product_dto.products.append(product)
-                    if unique_product_dto.product_meta_data is None:
-                        unique_product_dto.product_meta_data = product.product_meta_data
-                        unique_product_dto.product_meta_data.shop_name = product.name
+                    unique_product_dto.product_meta_data = product.product_meta_data
+                    unique_product_dto.product_meta_data.shop_name = product.name
+                    unique_product_dto.shop_name = product.name
             initial_products_grouped_by_type.append(unique_product_dto)
 
         initial_products_grouped_by_type = sorted(initial_products_grouped_by_type,

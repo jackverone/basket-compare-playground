@@ -62,7 +62,7 @@ class Product:
     def __str__(self):
         return (f"Product(id={self.id}, name={self.name}, icon={self.icon}, logo={self.logo}, type={self.type}, "
                 f"type_id={self.type_id}, type_name={self.type_name}, shop_id={self.shop_id}, currency={self.currency}, "
-                f"price={self.price}, price_prefix={self.price_prefix}, product_meta_data={self.product_meta_data}, "
+                f"price={self.price}, price_prefix={self.price_prefix}, product_meta_data=self.product_meta_data, "
                 f"product_name={self.product_name}, product_info={self.product_info}, product_url={self.product_url})")
 
     def __repr__(self):

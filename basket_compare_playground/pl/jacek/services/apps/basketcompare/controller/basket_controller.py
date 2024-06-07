@@ -2,8 +2,8 @@ import logging
 from typing import List
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.model import BuyBoxData
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 
 
 class BasketController:
@@ -24,6 +24,6 @@ class BasketController:
         product = self.service.search_by_type_and_add_product(product_search_dto)
         return product
 
-    def create_basket_compare(self, products: List[BuyBoxData]):
+    def create_basket_compare(self, products: List[ProductDto]):
         logging.info(f"create_basket_compare(products)")
         return self.service.create_basket_compare(products)

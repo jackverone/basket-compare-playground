@@ -19,7 +19,7 @@ class BasketService:
         self.product_service = product_service
         self.repository = repository
 
-    def get_all_products(self):
+    def get_all_products(self) -> List[ProductDto]:
         logging.info(f"get_all_products()")
         all_products = self.repository.get_all_products()
         logging.info(f"get_all_products() = all_products")
@@ -41,9 +41,10 @@ class BasketService:
         for product in found_product_full_data.products:
             if (product.product_name == product_search_dto.name
                     and product.product_info == product_search_dto.info
-                    and int(product.id) == int(product_search_dto.id)
+                    # and int(product.id) == int(product_search_dto.id)
                     and product.type == product_search_dto.type
-                    and int(product.type_id) == int(product_search_dto.type_id)):
+                    # and int(product.type_id) == int(product_search_dto.type_id)
+            ):
                 added_product = self.repository.add_product_dto(ProductDto([product]))
 
                 logging.info(f"search_by_type_and_add_product(...) = {added_product}")
@@ -52,12 +53,12 @@ class BasketService:
         logging.info(f"search_by_type_and_add_product(...) = {None}")
         return None
 
-    def add_product(self, product: ProductDto):
-        logging.info(f"add_product(product)")
-        return self.repository.add_product_dto(product)
+    # def add_product(self, product: ProductDto):
+    #     logging.info(f"add_product(product)")
+    #     return self.repository.add_product_dto(product)
 
     def create_basket_compare(self, product_dtos: List[ProductDto]) -> BasketCompare:
-        logging.info(f"create_basket_compare(products)")
+        logging.info(f"create_basket_compare({product_dtos})")
         basket_compare: BasketCompare = BasketCompare()
         basket_product_classify_dict = {}  # type: Dict[(int, int), Basket]
 

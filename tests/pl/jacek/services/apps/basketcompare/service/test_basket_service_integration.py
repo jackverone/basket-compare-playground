@@ -65,9 +65,9 @@ class TestIntegrationBasketService(TestCase):
             buybox_data_bambuko = BuyBoxData(json.load(file_json_data_bambuko))
             self.product_data_dto_bambuko.convert_buybox_to_dto(buybox_data_bambuko)
 
-        self.basket_service.add_product(self.product_data_dto_alchemik)
+        # self.basket_service.add_product(self.product_data_dto_alchemik)
         # self.basket_service.add_product(self.product_data_dto_karma)
-        self.basket_service.add_product(self.product_data_dto_bambuko)
+        # self.basket_service.add_product(self.product_data_dto_bambuko)
 
         all_products = self.basket_service.get_all_products()
         # logging.info(f"all_products={all_products}")

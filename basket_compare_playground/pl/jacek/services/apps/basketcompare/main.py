@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from flask import Flask, render_template, request, session
 
@@ -19,6 +20,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.s
     SearchProductForm
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 
 app = Flask(__name__)
 app.secret_key = "your another secret key"
@@ -86,7 +88,7 @@ def get_baskets():
 def get_basket_compare():
     app.logger.info(f"get_basket_compare()")
 
-    products = basket_controller.get_all_products()
+    products: List[ProductDto] = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
 
     return render_template("basket_compare.html", basket_compare=basket_compare,
@@ -126,11 +128,12 @@ def add_product_to_basket():
     logging.info("add_product_to_basket()")
     name = request.form["name"]
     info = request.form["info"]
-    id = request.form["id"]
+    # id = request.form["id"]
     type = request.form["type"]
-    type_id = request.form["type_id"]
+    # type_id = request.form["type_id"]
 
-    basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
+    # basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
+    basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, None, type, None))
 
     session[PRODUCT_SEARCH_SESSION_KEY] = True
     logging.info(f"Session: {session}")

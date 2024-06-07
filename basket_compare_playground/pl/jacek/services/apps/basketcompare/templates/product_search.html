@@ -19,87 +19,144 @@
                 <div class="col-sm">
                     <div>
                         <h1>Wyszukaj książkę</h1>
-                        <form action="/products/search" method="post" class="form-inline">
+                        <form action="/products/search" method="post">
                             {{ form.csrf_token }}
-                            <div class="form-group mb-3">
-                                {{ form.name.label }}
+                            <div class="mb-3">
+                                {{ form.name.label(class_="form-label") }}
                                 {{ form.name(class_="form-control", autofocus=true) }}
                                 <div id="emailHelp" class="form-text">
                                     Podaj autora, jeżeli książka nie zostanie znaleziona.
                                 </div>
                             </div>
-                            <div class="form-group mb-3">
-                                {{ form.info.label }}
+                            <div class="mb-3">
+                                {{ form.info.label(class_="form-label") }}
                                 {{ form.info(class_="form-control", autofocus=true) }}
                             </div>
-                            <button type="submit" class="btn btn-primary">Wyszukaj</button>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Wyszukaj</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-sm"></div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-3 g-3">
-                {% if product_by_type_dto is not none %}
-                {% for product_dto in product_by_type_dto.product_dtos %}
-                <div class="col">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="{{ product_dto.product_meta_data.image }}"
-                                     class="img-thumbnail img-thumbnail"
-                                     alt="{{ product_dto.product_meta_data.name }}">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Tytuł: {{ product_dto.product_meta_data.name }}</h5>
-                                    <p class="card-text">Autor: {{ product_dto.product_meta_data.info }}</p>
-                                    <p class="card-text">
-                                        <small class="">
-                                            {{ product_dto.shop_name }}
-                                        </small>
-                                    </p>
-                                    <ul class="card-text justify-content-center align-items-center">
-                                        {% for product in product_dto.products %}
-                                        <li>
-                                            <div>
-                                                {{ product.type_name }} - {{ product.price }} {{ product.currency }}
-                                            </div>
-                                            <div class="mb-2">
-                                                <form action="/products/add" method="post">
-                                                    <input type="hidden" name="id" value="{{ product.id }}">
-                                                    <input type="hidden" name="type" value="{{ product.type }}">
-                                                    <input type="hidden" name="type_id" value="{{ product.type_id }}">
-                                                    <input type="hidden" name="name"
-                                                           value="{{ product_dto.product_meta_data.name }}">
-                                                    <input type="hidden" name="info"
-                                                           value="{{ product_dto.product_meta_data.info }}">
-                                                    <button type="submit" class="btn btn-primary btn-sm">
-                                                        Dodaj do porównania</button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endif %}
+                <!--                <div class="col-sm"></div>-->
+                <!--            </div>-->
+                <!--            <div class="row row-cols-1 row-cols-md-3 g-3">-->
 
-                {% if product_by_type_dto is none %}
-                <div class="col-sm"></div>
                 <div class="col-sm">
+                    {% if product_meta_data is none %}
                     <div class="justify-content-center align-items-center p-3">
                         <h1>Wynik wyszukiwania</h1>
                         <div class="d-flex justify-content-center align-items-center text-bg-warning rounded-3 p-2">
                             Brak wyników wyszukiwania. Podaj tytuł i/lub autora książki.
                         </div>
                     </div>
+                    {% endif %}
+                    {% if product_meta_data is not none %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ product_meta_data.image }}" class="img-thumbnail img-thumbnail"
+                                     alt="{{ product_meta_data.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tytuł: {{ product_meta_data.name }}</h5>
+                                    <p class="card-text">Autor: {{ product_meta_data.info }}</p>
+                                    <p class="card-text">
+                                        <small class="">
+                                            {# Dostępne w {{ product_meta_data.statistics.shops_count }} sklepach. #}
+                                        </small>
+                                    </p>
+                                    {% if product_meta_data.statistics.by_type is not none %}
+                                    <ul class="card-text justify-content-center align-items-center">
+                                        <li>
+                                            <div>
+                                                Książka, cena od:
+                                                {{ product_meta_data.statistics.by_type.book.min_price }}
+                                                {{ product_meta_data.statistics.currency }}
+                                            </div>
+                                            <div class="mb-2">
+                                                <form action="/products/add" method="post">
+                                                    <input type="hidden" name="type" value="book">
+                                                    <input type="hidden" name="name"
+                                                           value="{{ product_meta_data.name }}">
+                                                    <input type="hidden" name="info"
+                                                           value="{{ product_meta_data.info }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        Dodaj do porównania
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                Ebook, cena od:
+                                                {{ product_meta_data.statistics.by_type.ebook.min_price }}
+                                                {{ product_meta_data.statistics.currency }}
+                                            </div>
+                                            <div class="mb-2">
+                                                <form action="/products/add" method="post">
+                                                    <input type="hidden" name="type" value="ebook">
+                                                    <input type="hidden" name="name"
+                                                           value="{{ product_meta_data.name }}">
+                                                    <input type="hidden" name="info"
+                                                           value="{{ product_meta_data.info }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        Dodaj do porównania
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                Audiobook, cena od:
+                                                {{ product_meta_data.statistics.by_type.audiobook.min_price }}
+                                                {{ product_meta_data.statistics.currency }}
+                                            </div>
+                                            <div class="mb-2">
+                                                <form action="/products/add" method="post">
+                                                    <input type="hidden" name="type" value="audiobook">
+                                                    <input type="hidden" name="name"
+                                                           value="{{ product_meta_data.name }}">
+                                                    <input type="hidden" name="info"
+                                                           value="{{ product_meta_data.info }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        Dodaj do porównania
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-sm"></div>
-                {% endif %}
+                <!--                    <div class="d-flex justify-content-center align-items-center p-3">-->
+                <!--                        <form action="/products/add" method="post">-->
+                <!--                            <h1>Wynik wyszukiwania</h1>-->
+                <!--                            <div class="d-flex justify-content-center align-items-center mt-3">-->
+                <!--                                <button type="submit" class="btn btn-primary">Dodaj do porównania</button>-->
+                <!--                            </div>-->
+                <!--                            <div class="d-flex justify-content-center align-items-center mt-3">-->
+                <!--                                <img src="{{ product_meta_data.image }}" class="img-thumbnail img-thumbnail"-->
+                <!--                                     alt="{{ product_meta_data.name }}">-->
+                <!--                            </div>-->
+                <!--                            <div class="d-flex justify-content-center align-items-center mt-3">-->
+                <!--                                Tytuł: {{ product_meta_data.name }}-->
+                <!--                                <input type="hidden" name="name" value="{{ product_meta_data.name }}">-->
+                <!--                            </div>-->
+                <!--                            <div class="d-flex justify-content-center align-items-center">-->
+                <!--                                Autor: {{ product_meta_data.info }}-->
+                <!--                                <input type="hidden" name="info" value="{{ product_meta_data.info }}">-->
+                <!--                            </div>-->
+                <!--                        </form>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
             </div>
         </div>
         <div id="footer">

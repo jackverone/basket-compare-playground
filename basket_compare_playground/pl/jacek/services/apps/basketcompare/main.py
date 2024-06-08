@@ -1,31 +1,27 @@
 import logging
+from typing import List
 
 from flask import Flask, render_template, request, session
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_compare_controller import \
-    BasketCompareController
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
     ProductRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.BasketCompareRepository import \
-    BasketCompareRepository
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.external.buybox.service.BuyBoxService import \
     BuyBoxService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_compare_service import \
-    BasketCompareService
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product import Product
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
     SearchProductForm
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import \
+    PRODUCT_ADDED_TO_COMPARE_SESSION_KEY, PRODUCT_SEARCH_SESSION_KEY
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 
 app = Flask(__name__)
 app.secret_key = "your another secret key"
@@ -39,15 +35,15 @@ logging.basicConfig(
 buybox_service = BuyBoxService()
 product_repository = ProductRepository()
 basket_repository = BasketRepository()
-basket_compare_repository = BasketCompareRepository()
+# basket_compare_repository = BasketCompareRepository()
 
 product_service = ProductService(product_repository, buybox_service)
 basket_service = BasketService(product_service, basket_repository)
-basket_compare_service = BasketCompareService(basket_compare_repository)
+# basket_compare_service = BasketCompareService(basket_compare_repository)
 
 product_controller = ProductController(product_service, product_repository)
 basket_controller = BasketController(basket_service)
-basket_compare_controller = BasketCompareController(basket_compare_service)
+# basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
 @app.errorhandler(404)
@@ -68,8 +64,8 @@ def home():
     basket_repository.clear_all_products()
     session.clear()
 
-    if PRODUCT_SEARCH_SESSION_KEY not in session:
-        session[PRODUCT_SEARCH_SESSION_KEY] = False
+    if PRODUCT_ADDED_TO_COMPARE_SESSION_KEY not in session:
+        session[PRODUCT_ADDED_TO_COMPARE_SESSION_KEY] = False
 
     logging.info(f"Session: {session}")
     return render_template("dashboard.html", form=SearchProductForm())
@@ -93,10 +89,11 @@ def get_baskets():
 def get_basket_compare():
     app.logger.info(f"get_basket_compare()")
 
-    products = basket_controller.get_all_products()
+    products: List[ProductDto] = basket_controller.get_all_products()
     basket_compare = basket_controller.create_basket_compare(products)
 
-    return render_template("basket_compare.html", basket_compare=basket_compare, form=SearchProductForm())
+    return render_template("basket_compare.html", basket_compare=basket_compare,
+                           form=SearchProductForm())
 
 
 @app.route("/products/search")
@@ -119,10 +116,13 @@ def search_products_post():
         logging.info(f"search_products_post({name}, {info})")
 
         product_meta_data = product_controller.search_product_meta_data(name, info)
-        product_by_type_dto = product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
+        product_by_type_dto = None  # product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
+
+        session[PRODUCT_SEARCH_SESSION_KEY] = True
 
         return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
+
     return render_template("product_search.html", form=form)
 
 
@@ -131,13 +131,13 @@ def add_product_to_basket():
     logging.info("add_product_to_basket()")
     name = request.form["name"]
     info = request.form["info"]
-    id = request.form["id"]
     type = request.form["type"]
-    type_id = request.form["type_id"]
 
-    basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
+    # basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
+    basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, None, type, None))
 
-    session[PRODUCT_SEARCH_SESSION_KEY] = True
+    session[PRODUCT_ADDED_TO_COMPARE_SESSION_KEY] = True
+    session[PRODUCT_SEARCH_SESSION_KEY] = False
     logging.info(f"Session: {session}")
 
     return render_template("product_search.html", product_by_type_dto=None, product_meta_data=None,

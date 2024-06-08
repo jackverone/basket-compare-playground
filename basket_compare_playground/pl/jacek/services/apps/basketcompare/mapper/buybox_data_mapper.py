@@ -17,14 +17,14 @@ def map_products_from_buybox_data(buybox_data: BuyBoxData) -> List[Product]:
 
     product_meta_data = extract_product_meta_data(buybox_data)
 
-    for key, datum in buybox_data.data.items():
-        product = map_product_from_datum(datum)
-        # FIXME: use setter instead of direct assignment!?
-        product.product_meta_data = product_meta_data
-        product.product_url = key
-        product.product_name = product_meta_data.name
-        product.product_info = product_meta_data.info
-        products.append(product)
+    if hasattr(buybox_data, 'data'):
+        for key, datum in buybox_data.data.items():
+            product = map_product_from_datum(datum)
+            product.product_meta_data = product_meta_data
+            product.product_url = key
+            product.product_name = product_meta_data.name
+            product.product_info = product_meta_data.info
+            products.append(product)
 
     # logging.info(f"from_buybox_data(...) = products")
     return products

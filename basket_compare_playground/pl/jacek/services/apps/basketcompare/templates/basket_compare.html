@@ -28,9 +28,11 @@
                             {% for product in basket.products %}
                             <ul>
                                 <li>
+                                    <span>
                                     <a href="{{ product.product_url }}" target="_blank">
                                         {{ product.product_name }}, {{ product.product_info }}, {{ product.price }} {{ product.currency }}
-                                    </a>
+                                    </a>  ({{ product.type }})
+                                    </span>
                                 </li>
                             </ul>
                             {% endfor %}

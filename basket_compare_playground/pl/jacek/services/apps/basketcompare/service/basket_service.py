@@ -49,7 +49,7 @@ class BasketService:
     #     return self.repository.add_product_dto(product)
 
     def create_basket_compare(self, product_dtos: List[ProductDto]) -> BasketCompare:
-        logging.info(f"create_basket_compare({product_dtos})")
+        logging.info(f"create_basket_compare(product_dtos)")
         basket_compare: BasketCompare = BasketCompare()
         basket_product_classify_dict = {}  # type: Dict[(int, int), Basket]
 

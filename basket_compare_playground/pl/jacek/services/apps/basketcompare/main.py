@@ -18,7 +18,8 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.bask
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.search_product_form import \
     SearchProductForm
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import PRODUCT_SEARCH_SESSION_KEY
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constants import \
+    PRODUCT_ADDED_TO_COMPARE_SESSION_KEY, PRODUCT_SEARCH_SESSION_KEY
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 
@@ -63,8 +64,8 @@ def home():
     basket_repository.clear_all_products()
     session.clear()
 
-    if PRODUCT_SEARCH_SESSION_KEY not in session:
-        session[PRODUCT_SEARCH_SESSION_KEY] = False
+    if PRODUCT_ADDED_TO_COMPARE_SESSION_KEY not in session:
+        session[PRODUCT_ADDED_TO_COMPARE_SESSION_KEY] = False
 
     logging.info(f"Session: {session}")
     return render_template("dashboard.html", form=SearchProductForm())
@@ -117,6 +118,8 @@ def search_products_post():
         product_meta_data = product_controller.search_product_meta_data(name, info)
         product_by_type_dto = product_controller.search_product_grouped_by_type(ProductSearchDto(name, info))
 
+        session[PRODUCT_SEARCH_SESSION_KEY] = True
+
         return render_template("product_search.html", product_by_type_dto=product_by_type_dto,
                                product_meta_data=product_meta_data, form=SearchProductForm())
 
@@ -135,7 +138,8 @@ def add_product_to_basket():
     # basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, id, type, int(type_id)))
     basket_controller.search_by_type_and_add_product(ProductSearchDto(name, info, None, type, None))
 
-    session[PRODUCT_SEARCH_SESSION_KEY] = True
+    session[PRODUCT_ADDED_TO_COMPARE_SESSION_KEY] = True
+    session[PRODUCT_SEARCH_SESSION_KEY] = False
     logging.info(f"Session: {session}")
 
     return render_template("product_search.html", product_by_type_dto=None, product_meta_data=None,

@@ -39,10 +39,10 @@ class BasketService:
             product_search_dto.name, product_search_dto.info)
 
         for product in found_product_full_data.products:
-            if (product.product_name == product_search_dto.name
-                    and product.product_info == product_search_dto.info
+            if (product.type == product_search_dto.type
+                    # and product.product_name == product_search_dto.name
+                    # and product.product_info == product_search_dto.info
                     # and int(product.id) == int(product_search_dto.id)
-                    and product.type == product_search_dto.type
                     # and int(product.type_id) == int(product_search_dto.type_id)
             ):
                 added_product = self.repository.add_product_dto(ProductDto([product]))

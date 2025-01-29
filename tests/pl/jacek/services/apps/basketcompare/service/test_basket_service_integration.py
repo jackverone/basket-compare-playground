@@ -9,7 +9,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.produc
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.basket_service import BasketService
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.product_repository import \
     ProductRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 

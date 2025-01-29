@@ -1,7 +1,5 @@
 import logging
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import ProductRepository
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.service.product_service import ProductService
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_meta_data import ProductMetaData
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 

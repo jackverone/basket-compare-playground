@@ -7,7 +7,7 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.p
     ProductController
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.basket_controller import BasketController
 
-from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.ProductRepository import \
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.product_repository import \
     ProductRepository
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.repository.basket_repository import BasketRepository
 
@@ -35,15 +35,12 @@ logging.basicConfig(
 buybox_service = BuyBoxService()
 product_repository = ProductRepository()
 basket_repository = BasketRepository()
-# basket_compare_repository = BasketCompareRepository()
 
 product_service = ProductService(product_repository, buybox_service)
 basket_service = BasketService(product_service, basket_repository)
-# basket_compare_service = BasketCompareService(basket_compare_repository)
 
 product_controller = ProductController(product_service, product_repository)
 basket_controller = BasketController(basket_service)
-# basket_compare_controller = BasketCompareController(basket_compare_service)
 
 
 @app.errorhandler(404)

@@ -71,7 +71,9 @@ def internal_server_error(e):
 
 @app.route('/env')
 def env():
-    return f"Environment: {env}, Debug: {app.config['DEBUG']}"
+    ssl_crt = os.environ["SSL_CRT"]
+    ssl_key = os.environ["SSL_KEY"]
+    return f"Environment: {env}, Debug: {app.config['DEBUG']}, SSL_CRT: {ssl_crt}, SSL_KEY: {ssl_key}"
 
 
 @app.route("/")

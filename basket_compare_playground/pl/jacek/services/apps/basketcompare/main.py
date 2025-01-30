@@ -1,7 +1,11 @@
+import os
 import logging
 from typing import List
+from dotenv import load_dotenv, find_dotenv
 
 from flask import Flask, render_template, request, session
+# from dotenv import find_dotenv
+# from flask.cli import load_dotenv
 
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.controller.product_controller import \
     ProductController
@@ -23,8 +27,17 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constant
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.config import config
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.config.config import DevelopmentConfig
+
+
+load_dotenv(find_dotenv())
+env = os.getenv('FLASK_ENV', 'development')
 
 app = Flask(__name__)
+
+# app.config.from_object(config.get(env, DevelopmentConfig))
+# app.config.from_object(DevelopmentConfig)
+
 app.config.from_object(config)
 app.secret_key = "your another secret key"
 
@@ -54,6 +67,11 @@ def page_not_found(e):
 def internal_server_error(e):
     logging.error(f"Internal server error: {e}")
     return render_template("500.html", form=SearchProductForm()), 500
+
+
+@app.route('/env')
+def env():
+    return f"Environment: {env}, Debug: {app.config['DEBUG']}"
 
 
 @app.route("/")
@@ -143,4 +161,4 @@ def add_product_to_basket():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(ssl_context=(os.environ["SSL_CRT"], os.environ["SSL_KEY"]), port=8502)

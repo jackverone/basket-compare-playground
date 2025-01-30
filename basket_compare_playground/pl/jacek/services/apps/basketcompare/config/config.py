@@ -7,9 +7,8 @@ class Config:
 
     def __init__(self):
         self.DEBUG = False
-
-    SSL_CRT = os.environ["SSL_CRT"]
-    SSL_KEY = os.environ["SSL_KEY"]
+        self.SSL_CRT = os.environ["SSL_CRT"]
+        self.SSL_KEY = os.environ["SSL_KEY"]
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -17,7 +16,8 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
 
+
 config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig
+    "development": DevelopmentConfig,
+    "production": ProductionConfig
 }

@@ -22,10 +22,11 @@ from basket_compare_playground.pl.jacek.services.apps.basketcompare.api.constant
     PRODUCT_ADDED_TO_COMPARE_SESSION_KEY, PRODUCT_SEARCH_SESSION_KEY
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_search_dto import ProductSearchDto
 from basket_compare_playground.pl.jacek.services.apps.basketcompare.model.product_dto import ProductDto
+from basket_compare_playground.pl.jacek.services.apps.basketcompare.config import config
 
 app = Flask(__name__)
+app.config.from_object(config)
 app.secret_key = "your another secret key"
-app.debug = True
 
 logging.basicConfig(
     level=logging.INFO,
@@ -142,4 +143,4 @@ def add_product_to_basket():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
